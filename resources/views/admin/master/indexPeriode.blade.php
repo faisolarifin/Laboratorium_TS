@@ -12,6 +12,8 @@
                 <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5 class="mb-0">Data Periode</h5>
+                        <a href="{{ route('adm.master.fperiode') }}"><button class="btn btn-sm btn-primary"><i
+                                    class='bx bx-plus'></i></button></a>
                     </div>
                     <div class="card-body">
 
@@ -25,15 +27,13 @@
                             @php($no = 0)
                             @foreach ($periode as $row)
                                 <tr>
-                                    <td>{{++$no}}</td>
+                                    <td>{{ ++$no }}</td>
                                     <td>{{ $row->thn_ajaran }}</td>
                                     <td>{{ $row->semester }}</td>
                                     <td>
-                                        <form class="d-inline" action="{{ route('adm.prak.bayar') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="kode_mhs" value="{{ $row->id_periode }}">
-                                            <button type="submit" class="btn btn-sm btn-danger">x</button>
-                                        </form>
+                                        <a href="{{ route('adm.master.eperiode', $row->id_periode) }}">
+                                            <button type="submit" class="btn btn-sm btn-info"><i
+                                                    class='bx bxs-edit'></i></button></a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('id_mp');
             $table->string('nama_mp',100);
             $table->integer('harga');
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
     }

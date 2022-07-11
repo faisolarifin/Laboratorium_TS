@@ -10,4 +10,5 @@ class Periode extends Model
     use HasFactory;
     protected $table = 'prak_periode';
     protected $primaryKey = 'id_periode';
+    protected $fillable = ['thn_ajaran', 'semester'];
 }

@@ -63,7 +63,6 @@ class AdminExport extends Controller
 
         if ($jadwal->isEmpty()) return redirect()->back()->with('error', 'Jadwal praktikum belum ditentukan!');
 
-        $id_kel = 1;
         foreach($jadwal as $row){
             $table->addRow(300);
             $table->addCell(null, ['gridSpan' => 2, 'borderColor' =>'ffffff',
@@ -81,7 +80,7 @@ class AdminExport extends Controller
             $no=0;
             foreach(
                 DaftarAnggotaKelompok::where([
-                    'id_kel' => $id_kel
+                    'id_kel' => $request->kode_kel
                 ])->with('mhs')->get() as $tb){ 
 
                 $table->addRow(450);
