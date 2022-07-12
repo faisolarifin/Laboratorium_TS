@@ -41,7 +41,7 @@
                             <tr class="table-primary">
                                 <td>Foto</td>
                                 <td>Nama</td>
-                                <td>NIM</td>
+                                <td>NRP</td>
                                 <td>Nilai Praktikum</td>
                                 <td>Aksi</td>
                             </tr>

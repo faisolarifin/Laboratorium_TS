@@ -19,29 +19,39 @@
                             <tr class="table-primary">
                                 <td width="20">No.</td>
                                 <td>Foto</td>
-                                <td>NIM</td>
+                                <td>N R P</td>
                                 <td>Nama</td>
                                 <td>TTL</td>
                                 <td>Alamat</td>
-                                <td>No. HP</td>
+                                {{-- <td>No. HP</td> --}}
+                                <td>Status Akun</td>
                                 <td>Aksi</td>
                             </tr>
                             @php($no = 0)
                             @foreach ($mhs as $row)
                                 <tr>
-                                    <td>{{++$no}}</td>
+                                    <td>{{ ++$no }}</td>
                                     <td><img src="{{ Storage::url($row->foto) }}" class="rounded" width="40"
                                             height="40" alt=".."></td>
                                     <td>{{ $row->nim }}</td>
                                     <td>{{ $row->nama }}</td>
                                     <td>{{ $row->tmp_lahir . ', ' . $row->tgl_lahir }}</td>
                                     <td>{{ $row->alamat }}</td>
-                                    <td>{{ $row->no_hp }}</td>
+                                    {{-- <td>{{ $row->no_hp }}</td> --}}
+                                    <td><span class="badge {{($row->status == 'aktif') ? 'bg-success' : (($row->status == 'block') ? 'bg-danger' : 'bg-warning')}}">{{ $row->status }}</span></td>
                                     <td>
-                                        <form class="d-inline" action="{{ route('adm.prak.bayar') }}" method="post">
+                                        <form class="d-inline" action="{{ route('adm.master.resetmhs') }}" method="post">
                                             @csrf
+                                            @method('PUT')
                                             <input type="hidden" name="kode_mhs" value="{{ $row->id_mhs }}">
-                                            <button type="submit" class="btn btn-sm btn-danger">x</button>
+                                            <button type="submit" class="btn btn-sm btn-info"><i class='bx bx-reset'></i></button>
+                                        </form>
+                                        <form class="d-inline" action="{{ route('adm.master.blockmhs') }}" method="post">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="kode_mhs" value="{{ $row->id_mhs }}">
+                                            <button type="submit" class="btn btn-sm btn-danger mt-sm-1"><i
+                                                    class='bx bx-block'></i></button>
                                         </form>
                                     </td>
                                 </tr>

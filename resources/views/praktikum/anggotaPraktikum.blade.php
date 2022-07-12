@@ -44,7 +44,7 @@
                                 </tr>
                                 <tr class="table-primary">
                                     <th>Foto</th>
-                                    <th>NIM</th>
+                                    <th>N R P</th>
                                     <th>Nama</th>
                                 </tr>
                             </thead>

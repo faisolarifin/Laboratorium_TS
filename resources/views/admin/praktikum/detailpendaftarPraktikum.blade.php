@@ -20,7 +20,7 @@
                                 <td>Nama : {{ $pendaftar->mhs->nama }}</td>
                             </tr>
                             <tr>
-                                <td>NIM : {{ $pendaftar->mhs->nim }}</td>
+                                <td>NRP : {{ $pendaftar->mhs->nim }}</td>
                             </tr>
                             <tr>
                                 <td>Periode Praktikum : {{ $pendaftar->periode->thn_ajaran }}</td>

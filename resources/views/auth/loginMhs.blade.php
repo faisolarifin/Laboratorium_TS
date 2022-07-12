@@ -73,16 +73,18 @@
               </div>
               <!-- /Logo -->
 
+              @include('templates.alert')
+
               <form id="formAuthentication" class="mb-3" action="{{route('auth.loginmhs')}}" method="POST">
                 @csrf
                 <div class="mb-3">
-                  <label for="email" class="form-label">NIM</label>
+                  <label for="nrp" class="form-label">NRP</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="email"
+                    id="nrp"
                     name="nim"
-                    placeholder="Masukkan NIM anda"
+                    placeholder="Masukkan NRP anda"
                     autofocus
                   />
                 </div>

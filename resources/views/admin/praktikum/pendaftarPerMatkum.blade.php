@@ -31,7 +31,7 @@
                                 <tr class="table-primary">
                                     <td>Foto</td>
                                     <td>Nama</td>
-                                    <td>NIM</td>
+                                    <td>N R P</td>
                                     <td>No. Hp</td>
                                     <td>Aksi</td>
                                 </tr>

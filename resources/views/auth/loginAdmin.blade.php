@@ -73,6 +73,8 @@
               </div>
               <!-- /Logo -->
 
+              @include('templates.alert')
+
               <form id="formAuthentication" class="mb-3" action="{{route('auth.loginadmin')}}" method="POST">
                 @csrf
                 <div class="mb-3">

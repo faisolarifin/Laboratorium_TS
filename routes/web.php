@@ -63,7 +63,15 @@ Route::middleware(['cekadmin'])->group(function() {
     Route::prefix('master')->group(function() {
         Route::get('/', [AdminMaster::class, 'indexDataMahasiswa']);
         Route::get('/mhs', [AdminMaster::class, 'indexDataMahasiswa'])->name('adm.master.mhs');
+        Route::put('/mhs', [AdminMaster::class, 'resetMahasiswa'])->name('adm.master.resetmhs');
+        Route::put('/mhs/block', [AdminMaster::class, 'blockMahasiswa'])->name('adm.master.blockmhs');
+        //dosen
         Route::get('/dosen', [AdminMaster::class, 'indexDataDosen'])->name('adm.master.dsn');
+        Route::get('/dosen/tambah', [AdminMaster::class, 'tambahDataDosen'])->name('adm.master.fdsn');
+        Route::get('/dosen/{id}', [AdminMaster::class, 'editDataDosen'])->name('adm.master.edsn');
+        Route::post('/dosen', [AdminMaster::class, 'saveDataDosen'])->name('adm.master.sdsn');
+        Route::put('/dosen', [AdminMaster::class, 'updateDataDosen'])->name('adm.master.udsn');
+        Route::delete('/dosen', [AdminMaster::class, 'deleteDataDosen'])->name('adm.master.ddsn');
         //matkum
         Route::get('/matkum', [AdminMaster::class, 'indexDataMatkum'])->name('adm.master.matkum');
         Route::get('/matkum/tambah', [AdminMaster::class, 'tambahDataMatkum'])->name('adm.master.fmatkum');

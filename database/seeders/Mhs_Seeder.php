@@ -64,6 +64,10 @@ class Mhs_Seeder extends Seeder
                 'key' => 'kalab',
                 'value' => 'ACH. DESMANTRI RAHMANTO, MT.',
             ],
+            [
+                'key' => 'praktikum',
+                'value' => 'off',
+            ],
         ];
         foreach ($dataSetting as $row) {
             Setting::create($row);

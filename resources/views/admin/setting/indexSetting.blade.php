@@ -53,6 +53,15 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th width="150">Pendaftaran Praktikum</th>
+                                    <td width="10">:</td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" role="switch" name="sw_prak" value="on" {{$setting[3]->value == 'on' ? 'checked' : ''}}>
+                                          </div>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td colspan="2"></td>
                                     <td>
                                         <button type="submit" class="btn btn-sm btn-primary"><i

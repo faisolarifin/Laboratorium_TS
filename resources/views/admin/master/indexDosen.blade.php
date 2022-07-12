@@ -12,6 +12,8 @@
                 <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5 class="mb-0">Data Dosen</h5>
+                        <a href="{{ route('adm.master.fdsn') }}"><button class="btn btn-sm btn-primary"><i
+                                    class='bx bx-plus'></i></button></a>
                     </div>
                     <div class="card-body">
 
@@ -28,17 +30,21 @@
                             @php($no = 0)
                             @foreach ($dosen as $row)
                                 <tr>
-                                    <td>{{++$no}}</td>
+                                    <td>{{ ++$no }}</td>
                                     <td>{{ $row->nip }}</td>
                                     <td>{{ $row->nama }}</td>
                                     <td>{{ $row->alamat }}</td>
                                     <td>{{ $row->no_hp }}</td>
                                     <td>{{ $row->email }}</td>
                                     <td>
-                                        <form class="d-inline" action="{{ route('adm.prak.bayar') }}" method="post">
+                                        <a href="{{ route('adm.master.edsn', $row->id_dosen) }}"><button
+                                                class="btn btn-sm btn-info"><i class='bx bxs-edit'></i></button></a>
+                                        <form class="d-inline" action="{{ route('adm.master.ddsn') }}" method="post">
                                             @csrf
-                                            <input type="hidden" name="kode_mhs" value="{{ $row->id_dosen }}">
-                                            <button type="submit" class="btn btn-sm btn-danger">x</button>
+                                            @method('DELETE')
+                                            <input type="hidden" name="kode_dosen" value="{{ $row->id_dosen }}">
+                                            <button type="submit" class="btn btn-sm btn-danger mt-sm-1"><i
+                                                    class='bx bx-trash-alt'></i></button>
                                         </form>
                                     </td>
                                 </tr>

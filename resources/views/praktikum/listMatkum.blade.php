@@ -29,7 +29,8 @@
                                         <form action="{{ route('mhs.matkum') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="id_matkum" value="{{ $row->id_mp }}">
-                                            <button type="submit" class="btn btn-sm btn-primary">+</button>
+                                            <button type="submit" class="btn btn-sm btn-primary" title="Tambah Praktikum"><i
+                                                    class='bx bx-add-to-queue'></i></button>
                                         </form>
                                     </td>
                                 </tr>

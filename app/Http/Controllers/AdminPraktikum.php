@@ -264,21 +264,19 @@ class AdminPraktikum extends Controller
     
     public function createPeriode()
     {
-        $penguji = Dosen::whereIn('id_dosen', DaftarKelompok::select('penguji')->where('id_mp', 1)->get())->get();
-        dd($penguji[0]->nama);
-        // $id_periode = 1; //sesuikan dengan di pengaturan
-        // foreach(MatkulPraktikum::all() as $row){
-        //     if (PendaftarAcc::where([
-        //         'id_mp' => $row->id_mp,
-        //         'id_periode' => $id_periode,
-        //         ])->first() == null)
-        //     {
-        //         PendaftarAcc::create([
-        //             'id_mp' => $row->id_mp,
-        //             'id_periode' => $id_periode,
-        //         ]);
-        //     }
-        // }
+        $id_periode = 1; //sesuikan dengan di pengaturan
+        foreach(MatkulPraktikum::all() as $row){
+            if (PendaftarAcc::where([
+                'id_mp' => $row->id_mp,
+                'id_periode' => $id_periode,
+                ])->first() == null)
+            {
+                PendaftarAcc::create([
+                    'id_mp' => $row->id_mp,
+                    'id_periode' => $id_periode,
+                ]);
+            }
+        }
 
     }
 }

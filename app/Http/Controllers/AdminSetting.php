@@ -25,6 +25,9 @@ class AdminSetting extends Controller
         Setting::find(3)->update([
             'value' => $request->kalab
         ]);
+        Setting::find(4)->update([
+            'value' => ($request->sw_prak == 'on') ? 'on' : 'off',
+        ]);
         return redirect()->back()->with('success', 'Pengaturan telah diubah');
     }
 }

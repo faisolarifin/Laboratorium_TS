@@ -30,7 +30,7 @@
                             <tr class="table-primary">
                                 <td>Periode</td>
                                 <td>Semester</td>
-                                <td>NIM</td>
+                                <td>NRP</td>
                                 <td>Nama</td>
                                 <td>Nama Pratikum</td>
                                 <td>Nilai</td>

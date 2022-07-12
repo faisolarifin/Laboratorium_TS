@@ -13,7 +13,7 @@
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5 class="mb-0">Data Praktikum</h5>
                         <a href="{{ route('adm.master.fmatkum') }}"><button class="btn btn-sm btn-primary"><i
-                            class='bx bx-plus'></i></button></a>
+                                    class='bx bx-plus'></i></button></a>
                     </div>
                     <div class="card-body">
 
@@ -33,13 +33,14 @@
                                     <td>Rp. {{ number_format($row->harga, 2) }}</td>
                                     <td>{{ $row->deksripsi ?? '-' }}</td>
                                     <td>
-                                        <a href="{{route('adm.master.ematkum', $row->id_mp)}}"><button class="btn btn-sm btn-info"><i
-                                            class='bx bxs-edit'></i></button></a>
+                                        <a href="{{ route('adm.master.ematkum', $row->id_mp) }}"><button
+                                                class="btn btn-sm btn-info"><i class='bx bxs-edit'></i></button></a>
                                         <form class="d-inline" action="{{ route('adm.master.dmatkum') }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <input type="hidden" name="kode_prak" value="{{ $row->id_mp }}">
-                                            <button type="submit" class="btn btn-sm btn-danger">x</button>
+                                            <button type="submit" class="btn btn-sm btn-danger"><i
+                                                    class='bx bx-trash-alt'></i></button>
                                         </form>
                                     </td>
                                 </tr>

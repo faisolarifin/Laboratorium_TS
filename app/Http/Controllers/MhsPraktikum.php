@@ -11,6 +11,7 @@ use App\Models\{
     DaftarPraktikumd,
     JadwalPraktikum,
     PendaftarAcc,
+    Setting,
 };
 
 class MhsPraktikum extends Controller
@@ -24,9 +25,12 @@ class MhsPraktikum extends Controller
     public function addMatkulPraktikum(Request $request)
     {  
         $mhs_id = $request->session()->get('id');
-        $id_periode = $request->currentPeriode;       
-
-        $cek_daftar = DaftarPraktikum::select('id_daftarmp')->where([
+        $id_periode = $request->currentPeriode; 
+        
+        if (Setting::find(4)->value == 'off' ) return redirect()
+        ->back()->with('error', 'Pendaftaran praktikum sudah ditutup!');
+        
+        $cek_daftar = DaftarPraktikum::where([
             'id_mhs' => $mhs_id,
             'id_periode' => $id_periode
         ])->first();
@@ -37,26 +41,34 @@ class MhsPraktikum extends Controller
                 'id_periode' => $id_periode,
                 'status_bayar' => 'belum',
                 'status_acc_fix' => 'belum',
-                ])->id_daftarmp;    
-            }else {
-                $daftar_id = $cek_daftar->id_daftarmp;
-            }
+                ])->id_daftarmp;   
 
-        $cek_matkum = DaftarPraktikumd::where([
-                'id_daftarmp' => $daftar_id,
-                'id_mp' => $request->id_matkum,
-            ])->first();
-            
-        if ($cek_matkum == null) {
-            DaftarPraktikumd::create([
-                'id_daftarmp' => $daftar_id,
-                'id_mp' => $request->id_matkum,
-            ]);  
         } else {
-            return redirect()->back()->with('error', 'anda sudah mendaftar pratikum tersebut');
+
+            if ($cek_daftar->status_bayar == 'lunas') return redirect()
+            ->back()->with('error', 'Tidak dapat menambah praktikum. Pembayaran sudah lunas!');
+
+            if ($cek_daftar->status_acc_fix == 'terima') return redirect()
+            ->back()->with('error', 'Tidak dapat menambah praktikum. Pendaftaran sudah divalidasi!');
+            
+            $daftar_id = $cek_daftar->id_daftarmp;
         }
 
-        return redirect()->back()->with('success', 'Praktikum berhasil ditambahkan');
+        $cek_matkum = DaftarPraktikumd::where([
+            'id_daftarmp' => $daftar_id,
+            'id_mp' => $request->id_matkum,
+        ])->first();
+        
+        if ($cek_matkum == null) {
+            DaftarPraktikumd::create([
+            'id_daftarmp' => $daftar_id,
+            'id_mp' => $request->id_matkum,
+            ]);  
+        } else {
+            return redirect()->back()->with('error', 'Anda sudah mendaftar pratikum tersebut!');
+        }
+
+        return redirect()->route('mhs.rencana')->with('success', 'Praktikum berhasil ditambahkan');
     }
 
     public function listPendingDaftar(Request $request)

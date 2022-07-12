@@ -38,13 +38,13 @@
                       />
                     </div>
                     <div class="mb-3">
-                      <label for="nim" class="form-label">NIM</label>
+                      <label for="nrp" class="form-label">NRP</label>
                       <input
                         type="text"
                         class="form-control"
-                        id="nim"
+                        id="nrp"
                         name="nim"
-                        placeholder="NIM"
+                        placeholder="NRP"
                         value="{{$mhs->nim}}"
                       />
                     </div>

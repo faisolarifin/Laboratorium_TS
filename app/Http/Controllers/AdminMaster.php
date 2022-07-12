@@ -34,6 +34,20 @@ class AdminMaster extends Controller
         $mhs = AkunMhs::all();
         return view('admin.master.indexMhs', compact('mhs'));
     }
+    public function resetMahasiswa(Request $request)
+    {
+        AkunMhs::find($request->kode_mhs)->update([
+            'password' => AkunMhs::find($request->kode_mhs)->nim,
+        ]);
+        return redirect()->back()->with('success', 'Password mahasiswa telah direset dengan NRP');
+    }
+    public function blockMahasiswa(Request $request)
+    {
+        AkunMhs::find($request->kode_mhs)->update([
+            'status' => 'block',
+        ]);
+        return redirect()->back()->with('success', 'Mahasiswa telah di block');
+    }
     public function tambahDataPeriode()
     {
         return view('admin.master.tambahPeriode');
@@ -117,8 +131,57 @@ class AdminMaster extends Controller
         MatkulPraktikum::find($request->kode_prak)->delete();
 
         return redirect()
-        ->route('adm.master.matkum')
+        ->back()
         ->with('success', 'Berhasil menghapus praktikum');
+    }
+
+    //controller dosen
+    public function tambahDataDosen()
+    {
+        return view('admin.master.tambahDosen');
+    }
+    public function editDataDosen($id)
+    {
+        $dosen = Dosen::find($id);
+        return view('admin.master.editDosen', compact('dosen'));
+    }
+    public function saveDataDosen(Request $request)
+    {
+        Dosen::create([
+            'nama' => $request->nm_dosen,
+            'nip' => $request->nip,
+            'jabatan' => $request->jabatan,
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'email' => $request->email,
+        ]);
+
+        return redirect()
+        ->route('adm.master.dsn')
+        ->with('success', 'Berhasil menambahkan data dosen');
+    }
+    public function deleteDataDosen(Request $request)
+    {
+        Dosen::find($request->kode_dosen)->delete();
+
+        return redirect()
+        ->back()
+        ->with('success', 'Berhasil menghapus data dosen');
+    }
+    public function updateDataDosen(Request $request)
+    {
+        Dosen::find($request->kode_dosen)->update([
+            'nama' => $request->nm_dosen,
+            'nip' => $request->nip,
+            'jabatan' => $request->jabatan,
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'email' => $request->email,
+        ]);
+
+        return redirect()
+        ->route('adm.master.dsn')
+        ->with('success', 'Berhasil mengubah data dosen');
     }
 
 

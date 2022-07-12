@@ -14,11 +14,17 @@ class Auth extends Controller
     }
     public function loginAkunMahasiswa(Request $request)
     {
+        $this->validate($request, [
+            'nim' => 'required|numeric',
+            'password' => 'required',
+        ]);
+
         $LOGIN = AkunMhs::where([
             'nim' => $request->nim,
             'password' => $request->password,
             ])->first();
             if ($LOGIN !== NULL) {
+                if ($LOGIN->status == 'block') return redirect()->back()->with('error', 'Akun anda di block. Hubungi Admin!');
                 session()->put('id', $LOGIN->id_mhs);
                 session()->put('nama', $LOGIN->nama);
                 session()->put('foto', $LOGIN->foto);
@@ -35,6 +41,11 @@ class Auth extends Controller
 
     public function loginAkunAdmin(Request $request)
     {
+        $this->validate($request, [
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
         $LOGIN = Admin::where([
             'username' => $request->username,
             'password' => $request->password,
