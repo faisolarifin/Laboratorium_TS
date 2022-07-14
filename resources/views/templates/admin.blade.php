@@ -151,23 +151,51 @@
                 
             <!-- Misc -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Keuangan</span></li>
-            {{-- <li class="menu-item">
+            <li class="menu-item">
               <a
-                href=""
-                target="_blank"
+                href="{{route('adm.keu.kasp')}}"
                 class="menu-link">
-                <i class="bx bx-cog me-2"></i>
-                <div data-i18n="Support">Saldo Kas</div>
+                <i class="bx bx-dollar-circle me-2"></i>
+                <div data-i18n="Documentation">Kas Periode</div>
               </a>
-            </li> --}}
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
+                <div data-i18n="Account Settings">Kas</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{{route('adm.keu.kode')}}" class="menu-link">
+                    <div data-i18n="Account">Kode Kas</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{route('adm.keu.kas')}}" class="menu-link">
+                    <div data-i18n="Notifications">Administrasi Kas</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            {{-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Inventaris</span></li>
             <li class="menu-item">
               <a
                 href="{{route('auth.logout')}}"
                 class="menu-link">
-                <i class="bx bx-dollar-circle me-2"></i>
-                <div data-i18n="Documentation">Administrasi Kas</div>
+                <i class="bx bx-trash me-2"></i>
+                <div data-i18n="Documentation">Alat Bahan</div>
               </a>
             </li>
+            <li class="menu-item">
+              <a
+                href="{{route('auth.logout')}}"
+                class="menu-link">
+                <i class="bx bx-chart"></i>
+                <div data-i18n="Documentation">Permohonan</div>
+              </a>
+            </li>
+             --}}
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Setting</span></li>
             <li class="menu-item">
               <a

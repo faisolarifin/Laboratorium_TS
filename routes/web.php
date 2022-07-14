@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AdminExport,
+    AdminKeuangan,
     AdminMaster,
     MhsPraktikum,
     AdminPraktikum,
@@ -55,11 +56,34 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::get('/jadwal', function() {return redirect()->back();});
         Route::post('/jadwal', [AdminPraktikum::class, 'saveJadwalPraktikum'])->name('adm.prak.tmbjadwal');
         Route::delete('/jadwal', [AdminPraktikum::class, 'hapusJadwalPraktikum'])->name('adm.prak.hpsjadwal');
-    });    
-    Route::prefix('setting')->group(function() {
-        Route::get('/', [AdminSetting::class, 'index'])->name('adm.setting');
-        Route::put('/', [AdminSetting::class, 'updateSetting'])->name('adm.setting');
     });
+
+    Route::prefix('keu')->group(function(){
+        //kode kas
+        Route::get('/kode', [AdminKeuangan::class, 'indexKodeKas'])->name('adm.keu.kode');
+        Route::get('/kode/tambah', [AdminKeuangan::class, 'tambahKodeKas'])->name('adm.keu.fkode');
+        Route::get('/kode/{id}', [AdminKeuangan::class, 'editKodeKas'])->name('adm.keu.ekode');
+        Route::post('/kode', [AdminKeuangan::class, 'saveKodeKas'])->name('adm.keu.skode');
+        Route::put('/kode', [AdminKeuangan::class, 'updateKodeKas'])->name('adm.keu.ukode');
+        Route::delete('/kode', [AdminKeuangan::class, 'deleteKodeKas'])->name('adm.keu.dkode');
+        //kas periode
+        Route::get('/kasp', [AdminKeuangan::class, 'indexKasPeriode'])->name('adm.keu.kasp');
+        Route::get('/kasp/tambah', [AdminKeuangan::class, 'tambahKasPeriode'])->name('adm.keu.fkasp');
+        Route::get('/kasp/{id}', [AdminKeuangan::class, 'editKasPeriode'])->name('adm.keu.ekasp');
+        Route::post('/kasp', [AdminKeuangan::class, 'saveKasPeriode'])->name('adm.keu.skasp');
+        Route::put('/kasp', [AdminKeuangan::class, 'updateKasPeriode'])->name('adm.keu.ukasp');
+        Route::delete('/kasp', [AdminKeuangan::class, 'deleteKasPeriode'])->name('adm.keu.dkasp');
+        //administrasi kas
+        Route::get('/kas', [AdminKeuangan::class, 'indexKas'])->name('adm.keu.kas');
+        Route::get('/kas/tambah', [AdminKeuangan::class, 'tambahKas'])->name('adm.keu.fkas');
+        Route::get('/kas/{id}', [AdminKeuangan::class, 'editKas'])->name('adm.keu.ekas');
+        Route::post('/kas', [AdminKeuangan::class, 'saveKas'])->name('adm.keu.skas');
+        Route::post('/kas/{id}', [AdminKeuangan::class, 'detailKas'])->name('adm.keu.dtkas');
+        Route::put('/kas', [AdminKeuangan::class, 'updateKas'])->name('adm.keu.ukas');
+        Route::delete('/kas', [AdminKeuangan::class, 'deleteKas'])->name('adm.keu.dkas');
+
+    });
+    
     Route::prefix('master')->group(function() {
         Route::get('/', [AdminMaster::class, 'indexDataMahasiswa']);
         Route::get('/mhs', [AdminMaster::class, 'indexDataMahasiswa'])->name('adm.master.mhs');
@@ -86,6 +110,7 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::post('/periode', [AdminMaster::class, 'saveDataPeriode'])->name('adm.master.speriode');
         Route::put('/periode', [AdminMaster::class, 'updateDataPeriode'])->name('adm.master.uperiode');
     });
+
     Route::prefix('export')->group(function() {
         Route::post('/daftarhadir', [AdminExport::class, 'exportDaftarHadir'])->name('adm.export.jadwal');
         Route::post('/daftarujian', [AdminExport::class, 'exportDafdirPerMatkum'])->name('adm.export.dafdir');
@@ -95,6 +120,11 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::post('/dafdirdosen', [AdminExport::class, 'exportDafdirPenguji'])->name('adm.export.dafdirdosen');
     });
 
+    Route::prefix('setting')->group(function() {
+        Route::get('/', [AdminSetting::class, 'index'])->name('adm.setting');
+        Route::put('/', [AdminSetting::class, 'updateSetting'])->name('adm.setting');
+    });
+    
 });
 
 Route::get('/', [Auth::class, 'loginFormMahasiswa'])->name('auth.loginmhs');
