@@ -21,37 +21,37 @@ class MatkulPraktikum_Seed extends Seeder
             [
                 'nama_mp' => 'Teknologi Bahan',
                 'harga' => 140000,
-                'dekripsi' => '',
+                'deskripsi' => '',
             ],
             [
                 'nama_mp' => 'Ilmu Ukur Tanah',
                 'harga' => 70000,
-                'dekripsi' => '',
+                'deskripsi' => '',
             ],
             [
                 'nama_mp' => 'Perpetaan',
                 'harga' => 80000,
-                'dekripsi' => '',
+                'deskripsi' => '',
             ],
             [
                 'nama_mp' => 'Hidorolika',
                 'harga' => 60000,
-                'dekripsi' => '',
+                'deskripsi' => '',
             ],
             [
                 'nama_mp' => 'Perkerasan Jalan Raya',
                 'harga' => 160000,
-                'dekripsi' => '',
+                'deskripsi' => '',
             ],
             [
                 'nama_mp' => 'Mekanika Tanah',
                 'harga' => 60000,
-                'dekripsi' => '',
+                'deskripsi' => '',
             ],
             [
                 'nama_mp' => 'Beton',
                 'harga' => 125000,
-                'dekripsi' => '',
+                'deskripsi' => '',
             ],
         ];
         foreach($data as $list){
