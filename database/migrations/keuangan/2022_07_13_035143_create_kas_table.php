@@ -32,7 +32,7 @@ return new class extends Migration
         Schema::create('keu_kas', function (Blueprint $table) {
             $table->id('id_kas');
             $table->unsignedBigInteger('id_kasp');
-            $table->foreign('id_kasp')->references('id_kasp')->on('keu_saldo');
+            $table->foreign('id_kasp')->references('id_kasp')->on('keu_kas_periode');
             $table->unsignedBigInteger('id_kode');
             $table->foreign('id_kode')->references('id')->on('keu_kode_kas');
             $table->date('tgl');
