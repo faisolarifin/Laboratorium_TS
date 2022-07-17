@@ -90,6 +90,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventaris');
+        Schema::dropIfExists('inve_permohonan');
+        Schema::dropIfExists('inve_alat_bahan');
     }
 };

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('keu_kas_periode', function (Blueprint $table) {
             $table->id('id_kasp');
-            $table->unsignedBigInteger('id_periode');
-            $table->foreign('id_periode')->references('id_periode')->on('prak_periode');
+            $table->unsignedBigInteger('id_periode')->nullable();
+            $table->foreign('id_periode')->references('id_periode')->on('prak_periode')->onUpdate('CASCADE')->onDelete('SET NULL');
             $table->decimal('saldo_awal', 12);
             $table->decimal('sisa_saldo', 12);
             $table->string('ket', 100);
@@ -32,9 +32,9 @@ return new class extends Migration
         Schema::create('keu_kas', function (Blueprint $table) {
             $table->id('id_kas');
             $table->unsignedBigInteger('id_kasp');
-            $table->foreign('id_kasp')->references('id_kasp')->on('keu_kas_periode');
-            $table->unsignedBigInteger('id_kode');
-            $table->foreign('id_kode')->references('id')->on('keu_kode_kas');
+            $table->foreign('id_kasp')->references('id_kasp')->on('keu_kas_periode')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->unsignedBigInteger('id_kode')->nullable();
+            $table->foreign('id_kode')->references('id')->on('keu_kode_kas')->onUpdate('CASCADE')->onDelete('SET NULL');
             $table->date('tgl');
             $table->text('nama');
             $table->decimal('harga', 12);
@@ -52,8 +52,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('keu_kas_periode');
+        Schema::dropIfExists('keu_kas');
         Schema::dropIfExists('keu_kode_kas');
-        Schema::dropIfExists('keu_saldo');
+        Schema::dropIfExists('keu_kas_periode');
     }
 };
