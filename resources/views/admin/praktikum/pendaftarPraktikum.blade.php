@@ -19,7 +19,7 @@
   <table class="table table-striped">
     <tr class="table-primary">
         <td>Nama</td>
-        <td>N R P</td>
+        <td>N P M</td>
         <td>No. Hp</td>
         <td>Status Bayar</td>
         <td>Status Terima</td>

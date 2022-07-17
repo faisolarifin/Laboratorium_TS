@@ -23,6 +23,7 @@ use App\Http\Controllers\{
 */
 
 Route::middleware(['cekmhs'])->group(function() {
+    Route::get('/dash', [Auth::class, 'dashboardMhs'])->name('mhs.dashboard');
     Route::get('/matkum', [MhsPraktikum::class, 'listMatkulPraktikum'])->name('mhs.listmatkum');
     Route::get('/listdaftar', [MhsPraktikum::class, 'listPendingDaftar'])->name('mhs.rencana');
     Route::post('/matkum', [MhsPraktikum::class, 'addMatkulPraktikum'])->name('mhs.matkum');
@@ -35,6 +36,8 @@ Route::middleware(['cekmhs'])->group(function() {
 });
 
 Route::middleware(['cekadmin'])->group(function() {
+    Route::get('/dashboard', [Auth::class, 'dashboardAdmin'])->name('adm.dashboard');
+    
     Route::prefix('prak')->group(function() {
         Route::get('/', [AdminPraktikum::class, 'listPendaftarPraktikum']);
         Route::get('/listdaftar', [AdminPraktikum::class, 'listPendaftarPraktikum'])->name('adm.prak.pendaftar');
@@ -76,7 +79,8 @@ Route::middleware(['cekadmin'])->group(function() {
         //administrasi kas
         Route::get('/kas', [AdminKeuangan::class, 'indexKas'])->name('adm.keu.kas');
         Route::get('/kas/tambah', [AdminKeuangan::class, 'tambahKas'])->name('adm.keu.fkas');
-        Route::get('/kas/{id}', [AdminKeuangan::class, 'editKas'])->name('adm.keu.ekas');
+        Route::get('/kas/{id}', [AdminKeuangan::class, 'indexKas'])->name('adm.keu.kasid');
+        Route::get('/kas/edit/{id}', [AdminKeuangan::class, 'editKas'])->name('adm.keu.ekas');
         Route::post('/kas', [AdminKeuangan::class, 'saveKas'])->name('adm.keu.skas');
         Route::post('/kas/{id}', [AdminKeuangan::class, 'detailKas'])->name('adm.keu.dtkas');
         Route::put('/kas', [AdminKeuangan::class, 'updateKas'])->name('adm.keu.ukas');

@@ -28,6 +28,10 @@ class DaftarKelompok extends Model
     {
         return $this->belongsTo(Dosen::class, 'penguji', 'id_dosen');
     }
+    public function pgj2()
+    {
+        return $this->belongsTo(Dosen::class, 'penguji2', 'id_dosen');
+    }
     public function detail()
     {
         return $this->belongsTo(DaftarAnggotaKelompok::class, 'id_kel', 'id_kel');

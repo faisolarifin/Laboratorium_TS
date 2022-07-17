@@ -81,7 +81,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="index.html" class="menu-link">
+              <a href="{{route('adm.dashboard')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -94,7 +94,7 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
+                <i class="menu-icon tf-icons bx bx-copy-alt"></i>
                 <div data-i18n="Account Settings">Master Data</div>
               </a>
               <ul class="menu-sub">
@@ -122,7 +122,7 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
+                <i class="menu-icon tf-icons bx bxs-user-check"></i>
                 <div data-i18n="Account Settings">Praktikum</div>
               </a>
               <ul class="menu-sub">
@@ -155,13 +155,13 @@
               <a
                 href="{{route('adm.keu.kasp')}}"
                 class="menu-link">
-                <i class="bx bx-dollar-circle me-2"></i>
+                <i class="menu-icon tf-icons bx bx-wallet-alt"></i>
                 <div data-i18n="Documentation">Kas Periode</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
+                <i class="menu-icon tf-icons bx bx-bar-chart-alt"></i>
                 <div data-i18n="Account Settings">Kas</div>
               </a>
               <ul class="menu-sub">

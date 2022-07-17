@@ -12,8 +12,16 @@
                 <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5 class="mb-0">Kas</h5>
-                        <a href="{{ route('adm.keu.fkas') }}"><button class="btn btn-sm btn-primary"><i
-                                    class='bx bx-plus'></i></button></a>
+                        <div class="w-50 d-flex justify-content-end">
+                            <select class="form-select form-select-sm w-50 mx-3" onchange="location = this.value;">
+                                @foreach ($kasp_all as $row)
+                                    <option value="{{route('adm.keu.kasid', $row->id_kasp)}}" {{($periode_id == $row->id_kasp) ? 'selected' : ''}}>{{ $row->ket }}</option>
+                                @endforeach
+                            </select>
+                            <a href="{{ route('adm.keu.fkas') }}"><button class="btn btn-sm btn-primary"><i
+                                        class='bx bx-plus'></i></button></a>
+                        </div>
+
                     </div>
                     <div class="card-body">
 
@@ -31,7 +39,7 @@
                                 <td>Aksi</td>
                             </tr>
                             @php($no = 0)
-                            @php($saldo = $kasp->sisa_saldo)
+                            @php($saldo = @$kasp->saldo_awal)
                             @foreach ($kas as $row)
                                 <tr>
                                     <td>{{ ++$no }}</td>

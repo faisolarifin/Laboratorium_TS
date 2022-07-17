@@ -7,7 +7,15 @@ use App\Models\AkunMhs;
 use App\Models\Admin;
 
 class Auth extends Controller
-{
+{  
+    public function dashboardAdmin()
+    {
+        return view('admin.index');
+    }
+    public function dashboardMhs()
+    {
+        return view('index');
+    }
     public function loginFormMahasiswa()
     {
         return view('auth.loginMhs');
@@ -29,7 +37,7 @@ class Auth extends Controller
                 session()->put('nama', $LOGIN->nama);
                 session()->put('foto', $LOGIN->foto);
                 session()->put('role', 'MHS');
-                return redirect()->route('mhs.matkum');
+                return redirect()->route('mhs.dashboard');
             }
         return redirect()->route('auth.loginmhs')->with('error', 'Username atau Password anda salah!');
     }
@@ -54,7 +62,7 @@ class Auth extends Controller
                 $request->session()->put('id', $LOGIN->id);
                 $request->session()->put('nama', $LOGIN->nama);
                 $request->session()->put('role', 'ADMIN');
-                return redirect()->route('adm.prak.pendaftar');
+                return redirect()->route('adm.dashboard');
             }
         return redirect()->route('auth.loginadmin')->with('error', 'Username atau Password anda salah!');
     }

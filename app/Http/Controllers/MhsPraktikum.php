@@ -27,7 +27,7 @@ class MhsPraktikum extends Controller
         $mhs_id = $request->session()->get('id');
         $id_periode = $request->currentPeriode; 
         
-        if (Setting::find(4)->value == 'off' ) return redirect()
+        if (Setting::find(1)->praktikum == 'off' ) return redirect()
         ->back()->with('error', 'Pendaftaran praktikum sudah ditutup!');
         
         $cek_daftar = DaftarPraktikum::where([

@@ -29,19 +29,21 @@
                         <table class="table table-striped">
                             <tr class="table-primary">
                                 <td>Nama Kelompok</td>
-                                <td>Nama Praktikum</td>
+                                <td>Asprak</td>
+                                <td>Pembimbing</td>
                                 <td>Tanggal Ujian</td>
-                                <td>Dosen Pembimbing</td>
-                                <td>Dosen Penguji</td>
+                                <td>Penguji 1</td>
+                                <td>Penguji 2</td>
                                 <td>Aksi</td>
                             </tr>
                             @foreach ($list_kelompok as $row)
                                 <tr>
                                     <td>{{ $row->nm_kel }}</td>
-                                    <td>{{ $row->matkum->nama_mp }}</td>
-                                    <td>{{ @Date::tglIndo($row->tgl_ujian) }}</td>
+                                    <td>{{ $row->asprak }}</td>
                                     <td>{{ $row->pbb->nama ?? '-' }}</td>
+                                    <td>{{ @Date::tglIndo($row->tgl_ujian) }}</td>
                                     <td>{{ $row->pgj->nama ?? '-' }}</td>
+                                    <td>{{ $row->pgj2->nama ?? '-' }}</td>
                                     <td>
                                         {{-- <form class="d-inline" action="{{ route('adm.prak.hpskelompok') }}" method="post">
                                             @csrf

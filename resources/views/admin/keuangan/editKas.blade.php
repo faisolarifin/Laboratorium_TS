@@ -37,7 +37,7 @@
                                 <div class="col-sm-10">
                                     <select class="form-select w-50" id="kode_kas" name="kode_kas">
                                         @foreach ($kode as $row)
-                                            <option value="{{ $row->id }}"
+                                            <option value="{{ $row->id }}" data-harga="{{$row->harga}}" 
                                                 {{ $kas->id_kode == $row->id ? 'selected' : '' }}>
                                                 {{ $row->nm_kode . ' | ' . $row->ket }}
                                             </option>
@@ -103,4 +103,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const selectKode = document.querySelector('#kode_kas')
+        selectKode.onchange = function(e){
+            var selectedOption = this.options[this.selectedIndex];
+            var harga = selectedOption.getAttribute('data-harga')
+            document.querySelector('#harga').value = harga
+        }
+    </script>
 @endsection

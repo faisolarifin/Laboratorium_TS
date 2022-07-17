@@ -187,7 +187,7 @@ class AdminExport extends Controller
 
     public function exportDafdirPenguji(Request $request)
     {
-        $periode_id = Setting::find(2)->value;
+        $periode_id = Setting::find(1)->periode_aktif;
         $template_document = new TemplateProcessor(storage_path('word/praktikum/').'Dafdir_Dosen_Penguji.docx');
 
         //Create table
@@ -201,7 +201,7 @@ class AdminExport extends Controller
         $template_document->setValue('praktikum', $kel->matkum->nama_mp);
         $template_document->setValue('thn', $kel->periode->thn_ajaran);
         $template_document->setValue('tanggal', Date::tglIndo(Carbon::now()->format('Y-m-d')));
-        $template_document->setValue('dekan', Setting::find(1)->value);
+        $template_document->setValue('dekan', Setting::find(1)->dekan);
         
         $section = $document_with_table->addSection();
 
@@ -414,8 +414,8 @@ class AdminExport extends Controller
         $template_document->setValue('nilai', $angg->nilai);
         $template_document->setValue('tglujian', Date::tglIndo($angg->parent->tgl_ujian));
         $template_document->setValue('tglbawah', Date::tglIndo(Carbon::now()->format('Y-m-d')));
-        $template_document->setValue('dekan', Setting::find(1)->value);
-        $template_document->setValue('kalab', Setting::find(3)->value);
+        $template_document->setValue('dekan', Setting::find(1)->dekan);
+        $template_document->setValue('kalab', Setting::find(1)->kalab);
  
         $filename = "Sertifikat-{$angg->mhs->nama}.docx";
         $template_document->saveAs(storage_path('word/').$filename);

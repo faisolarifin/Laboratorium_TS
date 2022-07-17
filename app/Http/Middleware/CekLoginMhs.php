@@ -23,7 +23,7 @@ class CekLoginMhs
             if (AkunMhs::find(session()->get('id'))->status == 'non-aktif') {
                 return redirect()->route('mhs.profile');
             }
-            $request->currentPeriode = Setting::find(2)->value;
+            $request->currentPeriode = Setting::find(1)->periode_aktif;
             return $next($request);
         }
         abort(404);

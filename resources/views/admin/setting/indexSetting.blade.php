@@ -28,7 +28,15 @@
                                     <td width="10">:</td>
                                     <td>
                                         <input type="text" name="dekan" class="form-control form-control-sm w-50"
-                                            value="{{ $setting[0]->value }}">
+                                            value="{{ $setting->dekan }}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="150">Ka. Prodi</th>
+                                    <td width="10">:</td>
+                                    <td>
+                                        <input type="text" name="kaprodi" class="form-control form-control-sm w-50"
+                                            value="{{ $setting->kaprodi }}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -36,7 +44,7 @@
                                     <td width="10">:</td>
                                     <td>
                                         <input type="text" name="kalab" class="form-control form-control-sm w-50"
-                                            value="{{ $setting[2]->value }}">
+                                            value="{{ $setting->kalab }}">
                                     </td>
                                 </tr>
                                 <tr>
@@ -46,7 +54,7 @@
                                         <select class="form-select form-select-sm w-50" name="periode">
                                             @foreach ($periode as $row)
                                                 <option value="{{ $row->id_periode }}"
-                                                    {{ $row->id_periode == $setting[1]->value ? 'selected' : '' }}>
+                                                    {{ $row->id_periode == $setting->periode_aktif ? 'selected' : '' }}>
                                                     {{ $row->thn_ajaran . ' ' . $row->semester }}</option>
                                             @endforeach
                                         </select>
@@ -57,7 +65,7 @@
                                     <td width="10">:</td>
                                     <td>
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" role="switch" name="sw_prak" value="on" {{$setting[3]->value == 'on' ? 'checked' : ''}}>
+                                            <input class="form-check-input" type="checkbox" role="switch" name="sw_prak" value="on" {{$setting->praktikum == 'on' ? 'checked' : ''}}>
                                           </div>
                                     </td>
                                 </tr>

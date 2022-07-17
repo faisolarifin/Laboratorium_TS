@@ -69,8 +69,8 @@ class AdminKeuangan extends Controller
     {
         KasPeriode::create([
             'id_periode' => $request->periode,
-            'saldo_awal' => $request->saldo,
-            'sisa_saldo' => $request->saldo,
+            'saldo_awal' => $request->saldo_awal,
+            'sisa_saldo' => $request->saldo_awal,
             'ket' => $request->ket,
         ]);
         return redirect()
@@ -102,13 +102,14 @@ class AdminKeuangan extends Controller
         ->back()
         ->with('success', 'Berhasil menghapus kas periode');
     }
-    public function indexKas()
+    public function indexKas(Request $request)
     {
-        $periode_id = 1; //ambil berdasarkan request
-        $kas = Kas::with('kode')->get();
+        $periode_id = $request->segment(3) ?? KasPeriode::max('id_kasp'); //ambil berdasarkan request
+        $kas = Kas::where(['id_kasp' => $periode_id])->with('kode')->get();
+        $kasp_all = KasPeriode::all();
         $kasp = KasPeriode::where(['id_periode' => $periode_id])->first();
 
-        return view('admin.keuangan.indexKas', compact('kas', 'kasp'));
+        return view('admin.keuangan.indexKas', compact('kas', 'kasp_all', 'kasp', 'periode_id'));
     }
     public function tambahKas()
     {

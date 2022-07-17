@@ -38,6 +38,7 @@ class AdminMaster extends Controller
     {
         AkunMhs::find($request->kode_mhs)->update([
             'password' => AkunMhs::find($request->kode_mhs)->nim,
+            'status' => 'aktif',
         ]);
         return redirect()->back()->with('success', 'Password mahasiswa telah direset dengan NRP');
     }

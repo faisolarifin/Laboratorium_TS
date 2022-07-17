@@ -72,9 +72,9 @@
                             method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="nrp" class="form-label">NRP</label>
+                                <label for="nrp" class="form-label">N P M</label>
                                 <input type="text" class="form-control" id="nrp" name="nim"
-                                    placeholder="Masukkan NRP anda" autofocus />
+                                    placeholder="Masukkan NPM anda" autofocus />
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">

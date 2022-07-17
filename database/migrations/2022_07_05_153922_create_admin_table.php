@@ -23,8 +23,11 @@ return new class extends Migration
         });
         Schema::create('mast_setting', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
-            $table->string('value');
+            $table->string('dekan', 100)->nullable();
+            $table->string('kaprodi', 100)->nullable();
+            $table->string('kalab', 100)->nullable();
+            $table->string('periode_aktif', 10)->nullable();
+            $table->enum('praktikum', ['on', 'off'])->nullable();
         });
         //dosen
         Schema::create('mast_dosen', function (Blueprint $table) {
@@ -115,10 +118,13 @@ return new class extends Migration
             $table->foreign('id_mp')->references('id_mp')->on('prak_matkul_praktikum')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->string('nm_kel', 100);
             $table->date('tgl_ujian')->nullable();
+            $table->string('asprak', 100)->nullable();
             $table->unsignedBigInteger('pembimbing')->nullable();
             $table->unsignedBigInteger('penguji')->nullable();
+            $table->unsignedBigInteger('penguji2')->nullable();
             $table->foreign('pembimbing')->references('id_dosen')->on('mast_dosen')->onUpdate('CASCADE')->onDelete('SET NULL');
             $table->foreign('penguji')->references('id_dosen')->on('mast_dosen')->onUpdate('CASCADE')->onDelete('SET NULL');
+            $table->foreign('penguji2')->references('id_dosen')->on('mast_dosen')->onUpdate('CASCADE')->onDelete('SET NULL');
             $table->timestamps();
         });
         Schema::create('prak_kelompokd', function (Blueprint $table) {

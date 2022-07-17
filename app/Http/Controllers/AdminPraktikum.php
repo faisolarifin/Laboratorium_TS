@@ -168,7 +168,7 @@ class AdminPraktikum extends Controller
         $list_kelompok = DaftarKelompok::where([
             'id_periode' => $id_periode,
             'id_mp' => $id_mp,
-        ])->with('pbb')->with('pgj')->with('periode')->with('matkum')->get();
+        ])->with('pbb')->with('pgj')->with('pgj2')->get();
 
         return view('admin.praktikum.kelompokPerMatkum', compact('matkum_periode', 'list_kelompok', 'dosen'));
     }

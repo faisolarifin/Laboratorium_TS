@@ -98,13 +98,13 @@
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="nim" class="form-label">N R P</label>
+                  <label for="nim" class="form-label">N P M</label>
                   <input
                     type="text"
                     class="form-control"
                     id="nim"
                     name="nim"
-                    placeholder="N R P"
+                    placeholder="N P M"
                     value="{{old('nim')}}"
                   />
                 </div>

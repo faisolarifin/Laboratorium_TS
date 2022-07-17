@@ -11,5 +11,5 @@ class Setting extends Model
     protected $table = 'mast_setting';
     protected $primaryKey = 'id';
     public $timestamps = false;
-    protected $fillable = ['key', 'value'];
+    protected $fillable = ['dekan', 'kaprodi', 'kalab', 'periode_aktif', 'praktikum'];
 }

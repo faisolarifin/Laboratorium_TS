@@ -23,8 +23,8 @@
                                 <td>Keterangan</td>
                                 <td>Saldo Awal</td>
                                 <td>Sisa Saldo</td>
-                                <td>Total Debit</td>
-                                <td>Total Kredit</td>
+                                {{-- <td>Total Debit</td> --}}
+                                {{-- <td>Total Kredit</td> --}}
                                 <td>Aksi</td>
                             </tr>
                             @foreach ($kas as $row)
@@ -33,8 +33,8 @@
                                     <td>{{ $row->ket ?? '-' }}</td>
                                     <td>Rp. {{ number_format($row->saldo_awal, 2) }}</td>
                                     <td>Rp. {{ number_format($row->sisa_saldo, 2) }}</td>
-                                    <td></td>
-                                    <td></td>
+                                    {{-- <td></td> --}}
+                                    {{-- <td></td> --}}
                                     <td>
                                         <a href="{{ route('adm.keu.ekasp', $row->id_kasp) }}"><button
                                                 class="btn btn-sm btn-info"><i class='bx bxs-edit'></i></button></a>

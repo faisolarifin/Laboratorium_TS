@@ -19,7 +19,7 @@
                             <tr class="table-primary">
                                 <td width="20">No.</td>
                                 <td>Foto</td>
-                                <td>N R P</td>
+                                <td>N P M</td>
                                 <td>Nama</td>
                                 <td>TTL</td>
                                 <td>Alamat</td>

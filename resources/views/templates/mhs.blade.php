@@ -83,7 +83,7 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="javascript:void(0)">Home</a>
+                  <a class="nav-link active" aria-current="page" href="{{route('mhs.dashboard')}}">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a
