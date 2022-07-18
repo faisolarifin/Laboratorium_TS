@@ -67,7 +67,7 @@
                             @endforeach
                             @if ($list_kelompok->isNotEmpty())
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="7">
                                         <div class="row mt-1">
                                             <div class="col text-end">
                                                 <form class="d-inline" action="{{ route('adm.export.dafdirdosen') }}"

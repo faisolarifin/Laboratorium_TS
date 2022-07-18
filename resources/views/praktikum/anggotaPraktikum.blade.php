@@ -29,29 +29,40 @@
                                 </tr>
                                 <tr>
                                     <th colspan="3" class="px-0">
-                                        Tanggal Ujian : {{ Date::tglIndo($kelompok->tgl_ujian) }}
+                                        Tanggal Ujian : {{ @Date::tglIndo($kelompok->tgl_ujian) }}
                                     </th>
                                 </tr>
                                 <tr>
                                     <th colspan="3" class="px-0">
-                                        Dosen Pembimbing : {{ $kelompok->pbb->nama }}
+                                        Asisten Praktikum : {{ @$kelompok->asprak ?? '-' }}
                                     </th>
                                 </tr>
                                 <tr>
                                     <th colspan="3" class="px-0">
-                                        Dosen Pembimbing : {{ $kelompok->pgj->nama }}
+                                        Dosen Pembimbing : {{ @$kelompok->pbb->nama ?? '-' }}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" class="px-0">
+                                        Dosen Penguji 1 : {{ $kelompok->pgj->nama ?? '-' }}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" class="px-0">
+                                        Dosen Penguji 2 : {{ $kelompok->pgj2->nama ?? '-' }}
                                     </th>
                                 </tr>
                                 <tr class="table-primary">
                                     <th>Foto</th>
-                                    <th>N R P</th>
+                                    <th>N P M</th>
                                     <th>Nama</th>
                                 </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
                                 @foreach ($anggota as $row)
                                     <tr>
-                                        <td>foto.jpg</td>
+                                        <td><img src="{{ Storage::url($row->mhs->foto) }}" class="rounded" width="35"
+                                            height="35" alt=".."></td>
                                         <td>{{ $row->mhs->nim }}</td>
                                         <td>{{ strtoupper($row->mhs->nama) }}</td>
                                     </tr>

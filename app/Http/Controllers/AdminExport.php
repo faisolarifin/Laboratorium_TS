@@ -266,6 +266,9 @@ class AdminExport extends Controller
         $kel = DaftarKelompok::where([
             'id_kel' => $request->kode_kel,
         ])->with('pgj')->with('matkum')->first();
+
+        if ($kel->tgl_ujian == null) return redirect()->back()->with('error', 'Tanggal ujian belum ditentukan!');
+        if ($kel->penguji == null) return redirect()->back()->with('error', 'Dosen penguji belum ditentukan!');
         
         // Replace mark by xml code of table
         $template_document->setValue('praktikum', strtoupper($kel->matkum->nama_mp));

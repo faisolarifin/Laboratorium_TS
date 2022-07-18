@@ -10,4 +10,6 @@ class Admin extends Model
     use HasFactory;
     protected $table = 'mast_admin';
     protected $primaryKey = 'id';
+    protected $fillable = ['nama'];
+    
 }

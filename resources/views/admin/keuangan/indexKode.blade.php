@@ -28,7 +28,7 @@
                                 <tr>
                                     <td>{{ $row->nm_kode }}</td>
                                     <td>Rp. {{ number_format($row->harga, 2) }}</td>
-                                    <td>{{ $row->keterangan ?? '-' }}</td>
+                                    <td>{{ $row->ket ?? '-' }}</td>
                                     <td>
                                         <a href="{{ route('adm.keu.ekode', $row->id) }}"><button
                                                 class="btn btn-sm btn-info"><i class='bx bxs-edit'></i></button></a>

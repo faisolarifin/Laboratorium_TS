@@ -46,7 +46,7 @@ class Mhs_Seeder extends Seeder
         }
 
         Admin::create([
-            'nama' => 'Faisol, S.Kom.,M.Cs.',
+            'nama' => 'Subaidillah Fansuri, ST. MT.',
             'username' => 'admin',
             'password' => 'admin',
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Periode;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -23,7 +24,9 @@ class AdminSetting extends Controller
             'periode_aktif' => $request->periode,
             'praktikum' => ($request->sw_prak == 'on') ? 'on' : 'off',
         ]);
-
+        Admin::find(1)->update([
+            'nama' => $request->kalab,
+        ]);
         return redirect()->back()->with('success', 'Pengaturan telah diubah');
     }
 }
