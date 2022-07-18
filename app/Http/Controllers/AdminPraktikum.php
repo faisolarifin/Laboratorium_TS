@@ -177,8 +177,10 @@ class AdminPraktikum extends Controller
     {
         DaftarKelompok::where(['id_kel' => $request->kode_kel])->update([
             'tgl_ujian' => $request->tgl_ujian,
+            'asprak' => $request->asprak,
             'pembimbing' => $request->dsn_pembimbing,
-            'penguji' => $request->dsn_penguji,
+            'penguji' => $request->dsn_penguji1,
+            'penguji2' => $request->dsn_penguji2,
         ]);
         return redirect()->back()->with('success', 'Perubahan data kelompok berhasil');
     }

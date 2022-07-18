@@ -77,8 +77,16 @@
                                         <form class="d-inline" action="{{ route('adm.export.baujian') }}" method="post">
                                             @csrf
                                             <input type="hidden" name="kode_kel" value="{{ $matkum->id_kel }}">
+                                            <input type="hidden" name="penguji" value="1">
                                             <button type="submit" class="btn btn-sm btn-info"><i
-                                                    class='bx bxs-download'></i> BA UJIAN</button>
+                                                class='bx bxs-download'></i> BA UJIAN PENGUJI 1</button>
+                                        </form>
+                                        <form class="d-inline" action="{{ route('adm.export.baujian') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="kode_kel" value="{{ $matkum->id_kel }}">
+                                            <input type="hidden" name="penguji" value="2">
+                                            <button type="submit" class="btn btn-sm btn-info"><i
+                                                    class='bx bxs-download'></i> BA UJIAN PENGUJI 2</button>
                                         </form>
                                     </div>
                                 </td>
@@ -112,13 +120,9 @@
                                 <input type="hidden" name="kode_mhs" id="kode_mhs">
                                 <label class="form-label" for="nilai">Nilai Praktikum</label>
                                 <select class="form-select" id="nilai" name="nilai">
-                                    <option value="A+">A+</option>
                                     <option value="A">A</option>
-                                    <option value="B+">B+</option>
                                     <option value="B">B</option>
-                                    <option value="C+">C+</option>
                                     <option value="C">C</option>
-                                    <option value="D+">D+</option>
                                     <option value="D">D</option>
                                     <option value="E">E</option>
                                 </select>

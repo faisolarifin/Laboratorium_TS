@@ -10,7 +10,7 @@ class DaftarKelompok extends Model
     use HasFactory;
     protected $table = 'prak_kelompok';
     protected $primaryKey = 'id_kel';
-    protected $fillable = ['id_periode', 'id_mp', 'nm_kel', 'tgl_ujian', 'pembimbing'];
+    protected $fillable = ['id_periode', 'id_mp', 'nm_kel', 'tgl_ujian', 'asprak', 'pembimbing', 'penguji', 'penguji2'];
 
     public function matkum()
     {

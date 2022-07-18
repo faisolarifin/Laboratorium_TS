@@ -53,7 +53,7 @@
                                         </form> --}}
                                         <button type="button" class="btn btn-sm btn-primary mt-1" data-bs-toggle="modal"
                                             data-bs-target="#smallModal"
-                                            data-bs="{{ $row->id_kel }}:{{ $row->nm_kel }}:{{ $row->tgl_ujian }}:{{ $row->pembimbing }}:{{ $row->penguji }}">
+                                            data-bs="{{ $row->id_kel }}:{{ $row->nm_kel }}:{{ $row->tgl_ujian }}:{{ $row->asprak }}:{{ $row->pembimbing }}:{{ $row->penguji }}:{{ $row->penguji2 }}">
                                             <i class='bx bx-edit-alt'></i>
                                         </button>
                                         <a href="{{ route('adm.prak.anggota', $row->id_kel) }}"
@@ -111,6 +111,10 @@
                         </div>
                         <div class="row g-2">
                             <div class="col mb-0">
+                                <label for="asprak" class="form-label">Asprak</label>
+                                <input type="text" class="form-control" name="asprak" id="asprak">
+                            </div>
+                            <div class="col mb-0">
                                 <label class="form-label" for="dsn_pembimbing">Dosen Pembimbing</label>
                                 <select class="form-select" id="dsn_pembimbing" name="dsn_pembimbing">
                                     @foreach ($dosen as $row)
@@ -118,9 +122,19 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col dsn_penguji-0">
-                                <label for="dobSmall" class="form-label">Dosen Penguji</label>
-                                <select class="form-select" id="dsn_penguji" name="dsn_penguji">
+                        </div>
+                        <div class="row g-2">
+                            <div class="col mb-0">
+                                <label class="form-label" for="dsn_penguji1">Dosen Penguji 1</label>
+                                <select class="form-select" id="dsn_penguji1" name="dsn_penguji1">
+                                    @foreach ($dosen as $row)
+                                        <option value="{{ $row->id_dosen }}">{{ $row->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col mb-0">
+                                <label for="dsn_penguji2" class="form-label">Dosen Penguji 2</label>
+                                <select class="form-select" id="dsn_penguji2" name="dsn_penguji2">
                                     @foreach ($dosen as $row)
                                         <option value="{{ $row->id_dosen }}">{{ $row->nama }}</option>
                                     @endforeach
@@ -151,14 +165,18 @@
             var modalTitle = exampleModal.querySelector('.modal-title')
             var Kode_Kel = exampleModal.querySelector('.modal-body #kode_kel')
             var Tgl_Ujian = exampleModal.querySelector('.modal-body #tgl_ujian')
-            var Dsn_Penguji = exampleModal.querySelector('.modal-body #dsn_penguji')
+            var Asprak = exampleModal.querySelector('.modal-body #asprak')
+            var Dsn_Penguji1 = exampleModal.querySelector('.modal-body #dsn_penguji1')
+            var Dsn_Penguji2 = exampleModal.querySelector('.modal-body #dsn_penguji2')
             var Dsn_Pembimbing = exampleModal.querySelector('.modal-body #dsn_pembimbing')
 
             Kode_Kel.value = data[0]
             modalTitle.textContent = data[1]
             Tgl_Ujian.valueAsDate = new Date(data[2])
-            Dsn_Pembimbing.value = data[3]
-            Dsn_Penguji.value = data[4]
+            Asprak.value = data[3]
+            Dsn_Pembimbing.value = data[4]
+            Dsn_Penguji1.value = data[5]
+            Dsn_Penguji2.value = data[6]
 
         })
     </script>

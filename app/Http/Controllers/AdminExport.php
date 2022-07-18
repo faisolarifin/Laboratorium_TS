@@ -265,10 +265,11 @@ class AdminExport extends Controller
     
         $kel = DaftarKelompok::where([
             'id_kel' => $request->kode_kel,
-        ])->with('pgj')->with('matkum')->first();
+        ])->with('pgj')->with('pgj2')->with('matkum')->first();
 
         if ($kel->tgl_ujian == null) return redirect()->back()->with('error', 'Tanggal ujian belum ditentukan!');
-        if ($kel->penguji == null) return redirect()->back()->with('error', 'Dosen penguji belum ditentukan!');
+        if ($request->penguji==1 && $kel->penguji == null) return redirect()->back()->with('error', 'Dosen penguji belum ditentukan!');
+        if ($request->penguji==2 && $kel->penguji2 == null) return redirect()->back()->with('error', 'Dosen penguji belum ditentukan!');
         
         // Replace mark by xml code of table
         $template_document->setValue('praktikum', strtoupper($kel->matkum->nama_mp));
@@ -276,7 +277,7 @@ class AdminExport extends Controller
         $template_document->setValue('kelompok', strtoupper($kel->nm_kel));
         $template_document->setValue('tanggal', Date::tglIndo(Carbon::now()->format('Y-m-d')));
         $template_document->setValue('tglujian', Date::tglIndo($kel->tgl_ujian));
-        $template_document->setValue('penguji', $kel->pgj->nama);
+        $template_document->setValue('penguji', ($request->penguji==1) ? $kel->pgj->nama : $kel->pgj2->nama);
         
         $section = $document_with_table->addSection();
 
@@ -317,7 +318,7 @@ class AdminExport extends Controller
         $tablexml = preg_replace('/^[\s\S]*(<w:tbl\b.*<\/w:tbl>).*/', '$1', $fullxml);
         
         $template_document->setValue('table', $tablexml);
-        $filename = "BA_Ujian-{$kel->matkum->nama_mp}.docx";
+        $filename = "BA_Ujian-{$kel->matkum->nama_mp}(Penguji {$request->penguji}).docx";
 
         $template_document->saveAs(storage_path('word/').$filename);
 
@@ -336,12 +337,15 @@ class AdminExport extends Controller
         $kel = DaftarKelompok::where([
             'id_kel' => $request->kode_kel,
         ])->with('matkum')->first();
-        
+
+        if ($kel->asprak == null) return redirect()->back()->with('error', 'Asistem Praktikum belum ditentukan!');
+
         // Replace mark by xml code of table
         $template_document->setValue('praktikum', strtoupper($kel->matkum->nama_mp));
         $template_document->setValue('semester', strtoupper($kel->periode->semester));
         $template_document->setValue('tahun', $kel->periode->thn_ajaran);
         $template_document->setValue('kelompok', strtoupper($kel->nm_kel));
+        $template_document->setValue('asprak', $kel->asprak);
         $template_document->setValue('tanggal', Date::tglIndo(Carbon::now()->format('Y-m-d')));
         
         $section = $document_with_table->addSection();
