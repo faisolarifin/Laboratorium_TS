@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Praktikum;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +14,7 @@ class DaftarAnggotaKelompok extends Model
 
     public function mhs()
     {
-       return $this->belongsTo(AkunMhs::class, 'id_mhs');
+       return $this->belongsTo(\App\Models\AkunMhs::class, 'id_mhs');
     }
     public function parent()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Praktikum;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,23 +18,27 @@ class DaftarKelompok extends Model
     }
     public function periode()
     {
-        return $this->belongsTo(Periode::class, 'id_periode');
+        return $this->belongsTo(\App\Models\Periode::class, 'id_periode');
     }
     public function pbb()
     {
-        return $this->belongsTo(Dosen::class, 'pembimbing', 'id_dosen');
+        return $this->belongsTo(\App\Models\Dosen::class, 'pembimbing', 'id_dosen');
     }
     public function pgj()
     {
-        return $this->belongsTo(Dosen::class, 'penguji', 'id_dosen');
+        return $this->belongsTo(\App\Models\Dosen::class, 'penguji', 'id_dosen');
     }
     public function pgj2()
     {
-        return $this->belongsTo(Dosen::class, 'penguji2', 'id_dosen');
+        return $this->belongsTo(\App\Models\Dosen::class, 'penguji2', 'id_dosen');
     }
     public function detail()
     {
-        return $this->belongsTo(DaftarAnggotaKelompok::class, 'id_kel', 'id_kel');
+        return $this->hasMany(DaftarAnggotaKelompok::class, 'id_kel', 'id_kel');
+    }
+    public function jadwal()
+    {
+        return $this->hasMany(JadwalPraktikum::class, 'id_kel', 'id_kel');
     }
 
 }

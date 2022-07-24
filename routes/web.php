@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AdminExport,
+    AdminInventaris,
     AdminKeuangan,
     AdminMaster,
     MhsPraktikum,
@@ -59,6 +60,23 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::get('/jadwal', function() {return redirect()->back();});
         Route::post('/jadwal', [AdminPraktikum::class, 'saveJadwalPraktikum'])->name('adm.prak.tmbjadwal');
         Route::delete('/jadwal', [AdminPraktikum::class, 'hapusJadwalPraktikum'])->name('adm.prak.hpsjadwal');
+    });
+
+    Route::prefix('inv')->group(function(){
+        Route::get('/permohon', [AdminInventaris::class, 'indexDataPermohon'])->name('adm.inv.permohon');
+        Route::get('/permohon/tambah', [AdminInventaris::class, 'tambahDataPermohon'])->name('adm.inv.permohon.t');
+        Route::get('/permohon/{id}', [AdminInventaris::class, 'editDataPermohon'])->name('adm.inv.permohon.e');
+        Route::post('/permohon', [AdminInventaris::class, 'saveDataPermohon'])->name('adm.inv.permohon.s');
+        Route::put('/permohon', [AdminInventaris::class, 'updateDataPermohon'])->name('adm.inv.permohon.u');
+        Route::delete('/permohon', [AdminInventaris::class, 'deleteDataPermohon'])->name('adm.inv.permohon.d');
+
+        Route::get('/bahan', [AdminInventaris::class, 'indexDataBahan'])->name('adm.inv.bahan');
+        Route::get('/bahan/tambah', [AdminInventaris::class, 'tambahDataBahan'])->name('adm.inv.bahan.t');
+        Route::get('/bahan/{id}', [AdminInventaris::class, 'editDataBahan'])->name('adm.inv.bahan.e');
+        Route::post('/bahan', [AdminInventaris::class, 'saveDataBahan'])->name('adm.inv.bahan.s');
+        Route::delete('/bahan', [AdminInventaris::class, 'deleteDataBahan'])->name('adm.inv.bahan.d');
+        Route::put('/bahan', [AdminInventaris::class, 'updateDataBahan'])->name('adm.inv.bahan.u');
+
     });
 
     Route::prefix('keu')->group(function(){
@@ -122,6 +140,7 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::post('/baujian', [AdminExport::class, 'exportBAUjianPerMatkum'])->name('adm.export.baujian');
         Route::post('/sertif', [AdminExport::class, 'exportSertifikat'])->name('adm.export.sertif');
         Route::post('/dafdirdosen', [AdminExport::class, 'exportDafdirPenguji'])->name('adm.export.dafdirdosen');
+        Route::post('/penjadwalan', [AdminExport::class, 'exportPenjadwalan'])->name('adm.export.penjadwalan');
     });
 
     Route::prefix('setting')->group(function() {

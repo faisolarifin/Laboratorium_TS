@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\{
+use App\Models\Praktikum\{
     DaftarKelompok,
     DaftarAnggotaKelompok,
     DaftarPraktikum,
     DaftarPraktikumd,
-    Dosen,
     JadwalPraktikum,
     MatkulPraktikum,
     PendaftarAcc,
     PendaftarAccd};
+    
+use App\Models\Dosen;
+
 
 class AdminPraktikum extends Controller
 {
@@ -266,19 +268,34 @@ class AdminPraktikum extends Controller
     
     public function createPeriode()
     {
-        $id_periode = 1; //sesuikan dengan di pengaturan
-        foreach(MatkulPraktikum::all() as $row){
-            if (PendaftarAcc::where([
-                'id_mp' => $row->id_mp,
-                'id_periode' => $id_periode,
-                ])->first() == null)
-            {
-                PendaftarAcc::create([
-                    'id_mp' => $row->id_mp,
-                    'id_periode' => $id_periode,
-                ]);
-            }
+        // $id_periode = 1; //sesuikan dengan di pengaturan
+        // foreach(MatkulPraktikum::all() as $row){
+        //     if (PendaftarAcc::where([
+        //         'id_mp' => $row->id_mp,
+        //         'id_periode' => $id_periode,
+        //         ])->first() == null)
+        //     {
+        //         PendaftarAcc::create([
+        //             'id_mp' => $row->id_mp,
+        //             'id_periode' => $id_periode,
+        //         ]);
+        //     }
+        // }
+
+
+        $dosen = array();
+        foreach(DaftarKelompok::select('penguji','penguji2')->where([
+            'id_periode' => 1,
+            'id_mp' => 1,
+        ])->with('pgj')->with('pgj2')->get() as $row) {
+            array_push($dosen, $row->pgj->nama, $row->pgj2->nama);
         }
+        $dosen = array_unique($dosen);
+
+        dump($dosen);
+
+        
+
 
     }
 }

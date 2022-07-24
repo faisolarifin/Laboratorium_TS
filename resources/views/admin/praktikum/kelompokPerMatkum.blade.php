@@ -70,6 +70,14 @@
                                     <td colspan="7">
                                         <div class="row mt-1">
                                             <div class="col text-end">
+                                                <form class="d-inline" action="{{ route('adm.export.penjadwalan') }}"
+                                                    method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="kode_mp"
+                                                        value="{{ Request::segment(3) ?? 1 }}">
+                                                    <button type="submit" class="btn btn-sm btn-secondary">
+                                                        <i class='bx bxs-download'></i> PENJADWALAN</button>
+                                                </form>
                                                 <form class="d-inline" action="{{ route('adm.export.dafdirdosen') }}"
                                                     method="post">
                                                     @csrf

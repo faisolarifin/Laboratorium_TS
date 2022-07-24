@@ -5,7 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Models\{
     AkunMhs, 
-    Setting, };
+    Setting,
+};
 use Illuminate\Http\Request;
 
 class CekLoginMhs

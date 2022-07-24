@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
-use App\Models\Periode;
-use App\Models\Setting;
+use App\Models\{
+    Admin,
+    Periode,
+    Setting,
+};
 use Illuminate\Http\Request;
 
 class AdminSetting extends Controller

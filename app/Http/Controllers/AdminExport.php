@@ -9,13 +9,16 @@ use PhpOffice\PhpWord\TemplateProcessor;
 use Carbon\Carbon;
 use App\Helpers\Date;
 
-use App\Models\{
+use App\Models\Praktikum\{
     DaftarAnggotaKelompok,
     DaftarKelompok,
-    Dosen,
     JadwalPraktikum,
     PendaftarAcc,
     PendaftarAccd,
+};
+
+use App\Models\{
+    Dosen,
     Setting,
 };
 
@@ -29,7 +32,6 @@ class AdminExport extends Controller
         //Create table
         $document_with_table = new PhpWord();
 
-        $id_kel = 1;
         $KelbyId= DaftarKelompok::where([
             'id_kel' => $request->kode_kel,
         ])->with('periode')->with('matkum')->first();
@@ -115,6 +117,159 @@ class AdminExport extends Controller
         unlink(storage_path('word/').$filename);
     }
 
+    public function exportPenjadwalan(Request $request)
+    {
+        $periode_id = Setting::find(1)->periode_aktif;
+        $head = DaftarKelompok::where([
+            'id_periode' => $periode_id,
+            'id_mp' => $request->kode_mp,
+        ])->with('periode')->with('matkum')->first();
+
+        $kelompok = DaftarKelompok::where([
+            'id_periode' => $periode_id,
+            'id_mp' => $request->kode_mp,
+        ])->with('pbb')
+        ->with('pgj')
+        ->with('pgj2')
+        ->with(['detail' => function($q){
+            $q->with('mhs');
+        }])
+        ->with('jadwal')->get();
+
+        if ($kelompok->isEmpty()) return redirect()->back()->with('error', 'Kelompok belum ditentukan!');
+
+        //Open template with ${table}
+        $template_document = new TemplateProcessor(storage_path('word/praktikum/').'Penjadwalan.docx');
+        
+        //Create table
+        $document_with_table = new PhpWord();
+
+        // Replace mark by xml code of table
+        $template_document->setValue('praktikum', strtoupper($head->matkum->nama_mp));
+        $template_document->setValue('semester', strtoupper($head->periode->semester));
+        $template_document->setValue('thn', strtoupper($head->periode->thn_ajaran));
+        $template_document->setValue('tanggal', Date::tglIndo(Carbon::now()->format('Y-m-d')));
+        $template_document->setValue('kaprodi', Setting::find(1)->kaprodi);
+        $template_document->setValue('kalab', Setting::find(1)->kalab);
+        
+        $section = $document_with_table->addSection();
+
+        $table = $section->addTable([
+            'borderSize' => 6, 
+            'borderColor' => '000', 
+            'afterSpacing' => 3, 
+            'Spacing'=> 0, 
+            'cellMargin'=> 0,
+        ]);
+        $fStyle = ['name' => 'Cambria', 'size' => '9', 'color' => '000', 'bold' => true, 'italic' => false];   
+        $pStyle = array('align' => 'center', "spaceBefore" => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(3));
+        $pStyle2 = array('align' => 'center', "spaceBefore" => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(5));
+        $hStyle = array("spaceAfter" => \PhpOffice\PhpWord\Shared\Converter::pointToTwip(3));
+        $style = array('bgColor' => 'dddddd');
+        $cellRowSpan = array('vMerge' => 'restart', 'valign' => 'center');
+        $cellRowContinue = array('vMerge' => 'continue');
+              
+        $no=0;
+        $table->addRow(350);
+        $table->addCell(850, $style)->addText('NO', $fStyle, $pStyle);
+        $table->addCell(1750, $style)->addText('N P M', $fStyle, $pStyle);
+        $table->addCell(2550, $style)->addText('NAMA', $fStyle, $pStyle);
+        $table->addCell(2150, $style)->addText('KELOMPOK ASISTEN PRAKTIKUM', $fStyle, $pStyle);
+        $table->addCell(2450, $style)->addText('JADWAL PRAKTIKUM', $fStyle, $pStyle);
+
+        foreach($kelompok as $row){
+            $i=1;
+            foreach ($row->detail as $d) {
+                $table->addRow(350);
+                $table->addCell()->addText(++$no, $fStyle, $pStyle2);
+                $table->addCell()->addText($d->mhs->nim, $fStyle, $pStyle2);
+                $table->addCell()->addText(strtoupper($d->mhs->nama), $fStyle, $pStyle2);          
+                if ($i==1) {
+                    $c1 = $table->addCell(1750, $cellRowSpan);
+                    $c1->addText(strtoupper($row->nm_kel), $fStyle, ['align' => 'center']);
+                    $c1->addText(strtoupper($row->asprak), $fStyle, ['align' => 'center']);
+                    $c2 = $table->addCell(1750, $cellRowSpan);
+                    foreach($row->jadwal as $j){
+                         $c2->addText(Date::hariIni($j->tgl_prak).', '.Date::tglIndo($j->tgl_prak), $fStyle, ['align' => 'center']);
+                    }
+                }else {
+                    $table->addCell(null, $cellRowContinue);
+                    $table->addCell(null, $cellRowContinue);
+                }
+                $i++;
+            }
+        }         
+                       
+        // Create writer to convert document to xml
+        $objWriter = IOFactory::createWriter($document_with_table, 'Word2007');
+        // Get all document xml code
+        $fullxml = $objWriter->getWriterPart('Document')->write();
+        // Get only table xml code
+        $tablexml = preg_replace('/^[\s\S]*(<w:tbl\b.*<\/w:tbl>).*/', '$1', $fullxml);
+        
+        $template_document->setValue('table', $tablexml);
+
+        //Create table 2
+        $document_with_table2 = new PhpWord();
+
+        $section = $document_with_table2->addSection();
+
+        $table = $section->addTable([
+            'borderSize' => 6, 
+            'borderColor' => '000', 
+            'afterSpacing' => 3, 
+            'Spacing'=> 0, 
+            'cellMargin'=> 0,
+        ]);
+        
+        $no=0;
+        $table->addRow(350);
+        $table->addCell(850, $style)->addText('NO', $fStyle, $pStyle);
+        $table->addCell(1750, $style)->addText('N P M', $fStyle, $pStyle);
+        $table->addCell(2550, $style)->addText('NAMA', $fStyle, $pStyle);
+        $table->addCell(2150, $style)->addText('KELOMPOK PEMBIMBING', $fStyle, $pStyle);
+        $table->addCell(2450, $style)->addText('DOSEN PENGUJI', $fStyle, $pStyle);
+
+        foreach($kelompok as $row){
+            $i=1;
+            foreach ($row->detail as $d) {
+                $table->addRow(350);
+                $table->addCell()->addText(++$no, $fStyle, $pStyle2);
+                $table->addCell()->addText($d->mhs->nim, $fStyle, $pStyle2);
+                $table->addCell()->addText(strtoupper($d->mhs->nama), $fStyle, $pStyle2);          
+                if ($i==1) {
+                    $c1 = $table->addCell(1750, $cellRowSpan);
+                    $c1->addText(strtoupper($row->nm_kel), $fStyle, ['align' => 'center']);
+                    $c1->addText(strtoupper($row->pbb->nama), $fStyle, ['align' => 'center']);
+                    $c2 = $table->addCell(1750, $cellRowSpan);
+                    $c2->addText(strtoupper($row->pgj->nama), $fStyle, ['align' => 'center']);
+                    $c2->addText(strtoupper($row->pgj2->nama), $fStyle, ['align' => 'center']);
+                }else {
+                    $table->addCell(null, $cellRowContinue);
+                    $table->addCell(null, $cellRowContinue);
+                }
+                $i++;
+            }
+        } 
+               
+        // Create writer to convert document to xml
+        $objWriter = IOFactory::createWriter($document_with_table2, 'Word2007');
+        // Get all document xml code
+        $fullxml = $objWriter->getWriterPart('Document')->write();
+        // Get only table xml code
+        $tablexml = preg_replace('/^[\s\S]*(<w:tbl\b.*<\/w:tbl>).*/', '$1', $fullxml);
+        
+        $template_document->setValue('table2', $tablexml);
+
+        $filename = "KELOMPOK DAN JADWAL PRAKTIKUM.docx";
+
+        $template_document->saveAs(storage_path('word/').$filename);
+
+        header("Content-Disposition: attachment; filename={$filename}");
+        readfile(storage_path('word/').$filename);
+        unlink(storage_path('word/').$filename);
+    }
+
     public function exportDafdirPerMatkum(Request $request)
     {
         //Open template with ${table}
@@ -188,16 +343,26 @@ class AdminExport extends Controller
     public function exportDafdirPenguji(Request $request)
     {
         $periode_id = Setting::find(1)->periode_aktif;
-        $template_document = new TemplateProcessor(storage_path('word/praktikum/').'Dafdir_Dosen_Penguji.docx');
-
-        //Create table
-        $document_with_table = new PhpWord();
-    
         $kel = DaftarKelompok::where([
             'id_mp' => $request->kode_mp,
             'id_periode' => $periode_id,
         ])->with('periode')->with('matkum')->first();
 
+        $dosen = array();
+        foreach(DaftarKelompok::select('penguji','penguji2')->where([
+            'id_periode' => $periode_id,
+            'id_mp' => $request->kode_mp,
+        ])->with('pgj')->with('pgj2')->get() as $row) {
+            array_push($dosen, $row->pgj->nama, $row->pgj2->nama);
+        }
+        $dosen = array_unique($dosen);
+        if (count($dosen) <= 0) return redirect()->back()->with('error', 'Dosen penguji belum ditentukan!');
+
+        $template_document = new TemplateProcessor(storage_path('word/praktikum/').'Dafdir_Dosen_Penguji.docx');
+
+        //Create table
+        $document_with_table = new PhpWord();
+    
         $template_document->setValue('praktikum', $kel->matkum->nama_mp);
         $template_document->setValue('thn', $kel->periode->thn_ajaran);
         $template_document->setValue('tanggal', Date::tglIndo(Carbon::now()->format('Y-m-d')));
@@ -226,14 +391,11 @@ class AdminExport extends Controller
         $table->addCell(4550, $style)->addText('TANDA TANGAN', $fStyle, $pStyle);
 
         $no=0;
-        $penguji = Dosen::whereIn('id_dosen', DaftarKelompok::select('penguji')->where(
-            ['id_mp' => $request->kode_mp,
-             'id_periode' => $periode_id])->get())->get();
-        foreach($penguji as $row)
+        foreach($dosen as $row)
         {
             $table->addRow(650);
             $table->addCell()->addText(++$no, $fStyle, $pStyle2);
-            $table->addCell()->addText($row->nama, $fStyleNama, $pStyleNama);
+            $table->addCell()->addText($row, $fStyleNama, $pStyleNama);
             $table->addCell();  
         }
         

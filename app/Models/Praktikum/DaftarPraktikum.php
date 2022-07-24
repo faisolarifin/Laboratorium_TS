@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Praktikum;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,10 +14,10 @@ class DaftarPraktikum extends Model
 
     public function mhs()
     {
-        return $this->belongsTo(AkunMhs::class, 'id_mhs');
+        return $this->belongsTo(\App\Models\AkunMhs::class, 'id_mhs');
     }
     public function periode()
     {
-        return $this->belongsTo(Periode::class, 'id_periode');
+        return $this->belongsTo(\App\Models\Periode::class, 'id_periode');
     }
 }

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kas;
-use App\Models\KasPeriode;
 use Illuminate\Http\Request;
-use App\Models\KodeKas;
-use App\Models\Periode;
+use App\Models\Keuangan\{
+    Kas,
+    KodeKas,
+    KasPeriode
+};
+use App\Models\{
+    Periode,
+};
 
 class AdminKeuangan extends Controller
 {

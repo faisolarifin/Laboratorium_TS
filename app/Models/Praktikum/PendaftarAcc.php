@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Praktikum;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +18,7 @@ class PendaftarAcc extends Model
     }
     public function periode()
     {
-        return $this->belongsTo(Periode::class, 'id_periode');
+        return $this->belongsTo(\App\Models\Periode::class, 'id_periode');
     }
     public function detail()
     {

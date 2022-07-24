@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{
+use App\Models\Praktikum\{
     DaftarAnggotaKelompok,
     DaftarKelompok,
     MatkulPraktikum,
@@ -11,8 +11,8 @@ use App\Models\{
     DaftarPraktikumd,
     JadwalPraktikum,
     PendaftarAcc,
-    Setting,
 };
+use App\Models\Setting;
 
 class MhsPraktikum extends Controller
 {

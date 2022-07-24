@@ -68,7 +68,7 @@
               <span class="app-brand-logo demo">
                 <img src="{{asset('assets/img/logo/logo.png')}}" width="50" alt="..">
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Lab Ts</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2"><h4 class="mb-0">Laboratorium</h4><h6 class="mb-0">Teknik Sipil</h6></span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -178,24 +178,24 @@
               </ul>
             </li>
 
-            {{-- <li class="menu-header small text-uppercase"><span class="menu-header-text">Inventaris</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Inventaris</span></li>
             <li class="menu-item">
               <a
-                href="{{route('auth.logout')}}"
+                href="{{route('adm.inv.bahan')}}"
                 class="menu-link">
-                <i class="bx bx-trash me-2"></i>
+                <i class="bx bx-git-pull-request me-2"></i>
                 <div data-i18n="Documentation">Alat Bahan</div>
               </a>
             </li>
             <li class="menu-item">
               <a
-                href="{{route('auth.logout')}}"
+                href="{{route('adm.inv.permohon')}}"
                 class="menu-link">
-                <i class="bx bx-chart"></i>
+                <i class="bx bx-chart me-2"></i>
                 <div data-i18n="Documentation">Permohonan</div>
               </a>
             </li>
-             --}}
+            
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Setting</span></li>
             <li class="menu-item">
               <a

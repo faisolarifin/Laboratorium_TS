@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\{Periode, MatkulPraktikum, PendaftarAcc};
+use App\Models\Praktikum\{MatkulPraktikum, PendaftarAcc};
+use App\Models\Periode;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

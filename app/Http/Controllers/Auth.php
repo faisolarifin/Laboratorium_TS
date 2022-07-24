@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\AkunMhs;
-use App\Models\Admin;
+use App\Models\{
+    AkunMhs,
+    Admin,
+};
 
 class Auth extends Controller
 {  

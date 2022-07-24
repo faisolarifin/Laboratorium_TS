@@ -35,7 +35,7 @@
                                 <td>{{$row->matkum->nama_mp}}</td>
                                 <td>{{$row->periode->thn_ajaran}}</td>
                                 <td>{{$row->periode->semester}}</td>
-                                <td><span class="badge bg-info">{{$row->detail->nilai}}</span></td>
+                                <td><span class="badge bg-info">{{$row->detail->first()->nilai}}</span></td>
                             </tr>                     
                         @endforeach
                     @endif

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AkunMhs;
-use App\Models\Dosen;
-use App\Models\MatkulPraktikum;
-use App\Models\PendaftarAcc;
-use App\Models\Periode;
 use Illuminate\Http\Request;
+use App\Models\Praktikum\{
+    MatkulPraktikum,
+    PendaftarAcc,
+};
+use App\Models\{
+    Dosen,
+    AkunMhs,
+    Periode,
+};
 
 class AdminMaster extends Controller
 {
