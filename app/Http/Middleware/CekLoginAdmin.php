@@ -17,7 +17,7 @@ class CekLoginAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (session()->get('id') !== NULL && session()->get('role') == 'ADMIN') {
+        if (auth()->user() !== NULL && auth()->user()->role == 'admin') {
             $request->currentPeriode = Setting::first()->periode_aktif;
             return $next($request);
         }

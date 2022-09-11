@@ -1,16 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{
-    AdminExport,
-    AdminInventaris,
+use App\Http\Controllers\{AdminInventaris,
     AdminKeuangan,
     AdminMaster,
-    MhsPraktikum,
     AdminPraktikum,
     AdminSetting,
     Auth,
-};
+    MhsPraktikum,
+    Penyewaan,
+    UserPenyewaan,};
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +22,7 @@ use App\Http\Controllers\{
 |
 */
 
-Route::middleware(['cekmhs'])->group(function() {
+Route::middleware(['cekuser'])->group(function() {
     Route::get('/dash', [Auth::class, 'dashboardMhs'])->name('mhs.dashboard');
     Route::get('/matkum', [MhsPraktikum::class, 'listMatkulPraktikum'])->name('mhs.listmatkum');
     Route::get('/listdaftar', [MhsPraktikum::class, 'listPendingDaftar'])->name('mhs.rencana');
@@ -34,11 +33,21 @@ Route::middleware(['cekmhs'])->group(function() {
     Route::get('/jadwal', [MhsPraktikum::class, 'listJadwalPraktikum'])->name('mhs.jad');
     Route::get('/jadwal/{id}', [MhsPraktikum::class, 'listJadwalPraktikum'])->name('mhs.jadwal');
     Route::get('/nilai', [MhsPraktikum::class, 'nilaiPraktikum'])->name('mhs.nilai');
+
+    Route::get('/alat', [UserPenyewaan::class, 'daftarAlat'])->name('usr.alat');
+    Route::get('/daftarsewa', [UserPenyewaan::class, 'daftarPenyewaan'])->name('usr.sewa.r');
+    Route::get('/historysewa', [UserPenyewaan::class, 'historyPenyewaan'])->name('usr.sewa.h');
+    Route::delete('/cancelsewa', [UserPenyewaan::class, 'cancelSewa'])->name('usr.sewa.c');
+    Route::get('/formsewa', [UserPenyewaan::class, 'formPenyewaan'])->name('usr.sewa.f');
+    Route::post('/sewa', [UserPenyewaan::class, 'permohonanSewa'])->name('usr.sewa');
+
+
+
 });
 
 Route::middleware(['cekadmin'])->group(function() {
     Route::get('/dashboard', [Auth::class, 'dashboardAdmin'])->name('adm.dashboard');
-    
+
     Route::prefix('prak')->group(function() {
         Route::get('/', [AdminPraktikum::class, 'listPendaftarPraktikum']);
         Route::get('/listdaftar', [AdminPraktikum::class, 'listPendaftarPraktikum'])->name('adm.prak.pendaftar');
@@ -60,6 +69,35 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::get('/jadwal', function() {return redirect()->back();});
         Route::post('/jadwal', [AdminPraktikum::class, 'saveJadwalPraktikum'])->name('adm.prak.tmbjadwal');
         Route::delete('/jadwal', [AdminPraktikum::class, 'hapusJadwalPraktikum'])->name('adm.prak.hpsjadwal');
+
+        //export word
+        Route::post('/daftarhadir', [AdminPraktikum::class, 'exportDaftarHadir'])->name('adm.export.jadwal');
+        Route::post('/daftarujian', [AdminPraktikum::class, 'exportDafdirPerMatkum'])->name('adm.export.dafdir');
+        Route::post('/ba', [AdminPraktikum::class, 'exportBAPelaksanaan'])->name('adm.export.ba');
+        Route::post('/baujian', [AdminPraktikum::class, 'exportBAUjian'])->name('adm.export.baujian');
+        Route::post('/sertif', [AdminPraktikum::class, 'exportSertifikat'])->name('adm.export.sertif');
+        Route::post('/dafdirdosen', [AdminPraktikum::class, 'exportDafdirPenguji'])->name('adm.export.dafdirdosen');
+        Route::post('/penjadwalan', [AdminPraktikum::class, 'exportPenjadwalan'])->name('adm.export.penjadwalan');
+    });
+
+    Route::prefix('sewa')->group(function(){
+        //alat
+        Route::get('alat', [Penyewaan::class, 'indexAlat'])->name('adm.sewa.alat.i');
+        Route::get('/alat/tambah', [Penyewaan::class, 'tambahAlat'])->name('adm.sewa.alat.t');
+        Route::get('/alat/{id}', [Penyewaan::class, 'editAlat'])->name('adm.sewa.alat.e');
+        Route::post('/alat', [Penyewaan::class, 'saveAlat'])->name('adm.sewa.alat.s');
+        Route::put('/alat', [Penyewaan::class, 'updateAlat'])->name('adm.sewa.alat.u');
+        Route::delete('/alat', [Penyewaan::class, 'deleteAlat'])->name('adm.sewa.alat.d');
+
+        //
+        Route::get('/', [Penyewaan::class, 'indexPenyewaan'])->name('adm.sewa.i');
+        Route::post('/start', [Penyewaan::class, 'startSewa'])->name('adm.sewa.st');
+        Route::post('/finish', [Penyewaan::class, 'stopSewa'])->name('adm.sewa.fs');
+        //export
+        Route::post('/bap', [Penyewaan::class, 'exportBAP'])->name('adm.sewa.export.bap');
+        Route::post('/bp', [Penyewaan::class, 'exportBP'])->name('adm.sewa.export.bp');
+        Route::post('/sbt', [Penyewaan::class, 'exportSBT'])->name('adm.sewa.export.sbt');
+
     });
 
     Route::prefix('inv')->group(function(){
@@ -105,12 +143,12 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::delete('/kas', [AdminKeuangan::class, 'deleteKas'])->name('adm.keu.dkas');
 
     });
-    
+
     Route::prefix('master')->group(function() {
-        Route::get('/', [AdminMaster::class, 'indexDataMahasiswa']);
-        Route::get('/mhs', [AdminMaster::class, 'indexDataMahasiswa'])->name('adm.master.mhs');
-        Route::put('/mhs', [AdminMaster::class, 'resetMahasiswa'])->name('adm.master.resetmhs');
-        Route::put('/mhs/block', [AdminMaster::class, 'blockMahasiswa'])->name('adm.master.blockmhs');
+        Route::get('/', [AdminMaster::class, 'indexDataPengguna']);
+        Route::get('/mhs', [AdminMaster::class, 'indexDataPengguna'])->name('adm.master.user');
+        Route::put('/mhs', [AdminMaster::class, 'resetPengguna'])->name('adm.master.resetuser');
+        Route::put('/mhs/block', [AdminMaster::class, 'blockPengguna'])->name('adm.master.blockuser');
         //dosen
         Route::get('/dosen', [AdminMaster::class, 'indexDataDosen'])->name('adm.master.dsn');
         Route::get('/dosen/tambah', [AdminMaster::class, 'tambahDataDosen'])->name('adm.master.fdsn');
@@ -133,34 +171,20 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::put('/periode', [AdminMaster::class, 'updateDataPeriode'])->name('adm.master.uperiode');
     });
 
-    Route::prefix('export')->group(function() {
-        Route::post('/daftarhadir', [AdminExport::class, 'exportDaftarHadir'])->name('adm.export.jadwal');
-        Route::post('/daftarujian', [AdminExport::class, 'exportDafdirPerMatkum'])->name('adm.export.dafdir');
-        Route::post('/ba', [AdminExport::class, 'exportBAPelaksanaanPerMatkum'])->name('adm.export.ba');
-        Route::post('/baujian', [AdminExport::class, 'exportBAUjianPerMatkum'])->name('adm.export.baujian');
-        Route::post('/sertif', [AdminExport::class, 'exportSertifikat'])->name('adm.export.sertif');
-        Route::post('/dafdirdosen', [AdminExport::class, 'exportDafdirPenguji'])->name('adm.export.dafdirdosen');
-        Route::post('/penjadwalan', [AdminExport::class, 'exportPenjadwalan'])->name('adm.export.penjadwalan');
-    });
-
     Route::prefix('setting')->group(function() {
         Route::get('/', [AdminSetting::class, 'index'])->name('adm.setting');
         Route::put('/', [AdminSetting::class, 'updateSetting'])->name('adm.setting');
     });
-    
+
 });
 
-Route::get('/', [Auth::class, 'loginFormMahasiswa'])->name('auth.loginmhs');
-Route::post('/', [Auth::class, 'loginAkunMahasiswa'])->name('auth.loginmhs');
-Route::get('/register', [Auth::class, 'registerFormMahasiswa'])->name('auth.regmhs');
-Route::post('/register', [Auth::class, 'registerAkunMahasiswa'])->name('auth.regmhs');
-Route::get('/profile', [Auth::class, 'profileFormMahasiswa'])->name('mhs.profile');
-Route::post('/profile', [Auth::class, 'saveProfileMahasiswa'])->name('mhs.profile');
+Route::get('/', [Auth::class, 'loginFormUser'])->name('auth.loginmhs');
+Route::post('/', [Auth::class, 'loginAkunUser'])->name('auth.loginmhs');
+Route::get('/register', [Auth::class, 'registerFormUser'])->name('auth.regmhs');
+Route::post('/register', [Auth::class, 'registerAkunUser'])->name('auth.regmhs');
+Route::get('/profile', [Auth::class, 'profileFormUser'])->name('mhs.profile');
+Route::post('/profile', [Auth::class, 'saveProfileUser'])->name('mhs.profile');
 Route::get('/auth', [Auth::class, 'loginFormAdmin'])->name('auth.loginadmin');
 Route::post('/auth', [Auth::class, 'loginAkunAdmin'])->name('auth.loginadmin');
 Route::get('/logout', [Auth::class, 'logout'])->name('auth.logout');
-
-
-Route::get('/createperiode', [AdminPraktikum::class, 'createPeriode']);
-
 

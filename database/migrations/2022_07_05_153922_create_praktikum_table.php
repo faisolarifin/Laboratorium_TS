@@ -13,50 +13,6 @@ return new class extends Migration
      */
     public function up()
     {
-        //master
-        Schema::create('mast_admin', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('username');
-            $table->string('password');
-            $table->timestamps();
-        });
-        Schema::create('mast_setting', function (Blueprint $table) {
-            $table->id();
-            $table->string('dekan', 100)->nullable();
-            $table->string('kaprodi', 100)->nullable();
-            $table->string('kalab', 100)->nullable();
-            $table->string('periode_aktif', 10)->nullable();
-            $table->enum('praktikum', ['on', 'off'])->nullable();
-        });
-        //dosen
-        Schema::create('mast_dosen', function (Blueprint $table) {
-            $table->id('id_dosen');
-            $table->string('nip', 20)->nullable();
-            $table->string('nama', 100);
-            $table->string('jabatan');
-            $table->string('alamat', 100);
-            $table->string('no_hp', 20);
-            $table->string('email', 50);
-            $table->timestamps();
-        });
-        //mahasiswa
-        Schema::create('akun_mhs', function (Blueprint $table) {
-            $table->id('id_mhs');
-            $table->string('nama', 100);
-            $table->string('nim', 20);
-            $table->unique('nim');
-            $table->string('password', 100);
-            $table->string('alamat', 200)->nullable();
-            $table->string('tmp_lahir', 40)->nullable();
-            $table->date('tgl_lahir')->nullable();
-            $table->string('no_hp', 20)->nullable();
-            $table->string('email', 100)->nullable();
-            $table->string('foto', 100)->nullable();
-            $table->enum('status', ['non-aktif', 'aktif', 'block']);
-            $table->timestamps();
-        });
-
         //praktikum
         Schema::create('prak_matkul_praktikum', function (Blueprint $table) {
             $table->id('id_mp');
@@ -76,8 +32,8 @@ return new class extends Migration
         //praktikum pendaftar
         Schema::create('prak_daftar_praktikum', function (Blueprint $table) {
             $table->id('id_daftarmp');
-            $table->unsignedBigInteger('id_mhs');
-            $table->foreign('id_mhs')->references('id_mhs')->on('akun_mhs')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id_user')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->unsignedBigInteger('id_periode')->nullable();
             $table->foreign('id_periode')->references('id_periode')->on('prak_periode')->onUpdate('CASCADE')->onDelete('SET NULL');
             $table->enum('status_bayar', ['belum', 'lunas']);
@@ -89,7 +45,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_mp');
             $table->foreign('id_daftarmp')->references('id_daftarmp')->on('prak_daftar_praktikum')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->foreign('id_mp')->references('id_mp')->on('prak_matkul_praktikum')->onUpdate('CASCADE')->onDelete('CASCADE');
-            
+
         });
 
         //praktikum acc
@@ -104,9 +60,9 @@ return new class extends Migration
         });
         Schema::create('prak_pendaftar_accd', function (Blueprint $table) {
             $table->unsignedBigInteger('id_daftar');
-            $table->unsignedBigInteger('id_mhs');
+            $table->unsignedBigInteger('id_user');
             $table->foreign('id_daftar')->references('id_daftar')->on('prak_pendaftar_acc')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign('id_mhs')->references('id_mhs')->on('akun_mhs')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('id_user')->references('id_user')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
 
         //praktikum kelompok
@@ -122,16 +78,16 @@ return new class extends Migration
             $table->unsignedBigInteger('pembimbing')->nullable();
             $table->unsignedBigInteger('penguji')->nullable();
             $table->unsignedBigInteger('penguji2')->nullable();
-            $table->foreign('pembimbing')->references('id_dosen')->on('mast_dosen')->onUpdate('CASCADE')->onDelete('SET NULL');
-            $table->foreign('penguji')->references('id_dosen')->on('mast_dosen')->onUpdate('CASCADE')->onDelete('SET NULL');
-            $table->foreign('penguji2')->references('id_dosen')->on('mast_dosen')->onUpdate('CASCADE')->onDelete('SET NULL');
+            $table->foreign('pembimbing')->references('id_dosen')->on('tbl_dosen')->onUpdate('CASCADE')->onDelete('SET NULL');
+            $table->foreign('penguji')->references('id_dosen')->on('tbl_dosen')->onUpdate('CASCADE')->onDelete('SET NULL');
+            $table->foreign('penguji2')->references('id_dosen')->on('tbl_dosen')->onUpdate('CASCADE')->onDelete('SET NULL');
             $table->timestamps();
         });
         Schema::create('prak_kelompokd', function (Blueprint $table) {
             $table->unsignedBigInteger('id_kel');
-            $table->unsignedBigInteger('id_mhs');
+            $table->unsignedBigInteger('id_user');
             $table->foreign('id_kel')->references('id_kel')->on('prak_kelompok')->onUpdate('CASCADE')->onDelete('CASCADE');;
-            $table->foreign('id_mhs')->references('id_mhs')->on('akun_mhs')->onUpdate('CASCADE')->onDelete('CASCADE');;
+            $table->foreign('id_user')->references('id_user')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');;
             $table->string('nilai', 10);
         });
         Schema::create('prak_jadwal', function (Blueprint $table) {
@@ -159,9 +115,5 @@ return new class extends Migration
         Schema::dropIfExists('prak_daftar_praktikum');
         Schema::dropIfExists('prak_periode');
         Schema::dropIfExists('prak_matkul_praktikum');
-        Schema::dropIfExists('akun_mhs');
-        Schema::dropIfExists('mast_dosen');
-        Schema::dropIfExists('mast_setting');
-        Schema::dropIfExists('mast_admin');
     }
 };

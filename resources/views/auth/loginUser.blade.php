@@ -61,7 +61,10 @@
                                 <span class="app-brand-logo demo">
                                     <img src="{{ asset('assets/img/logo/logo.png') }}" width="80" alt="..">
                                 </span>
-                                <span class="app-brand-text demo text-body fw-bolder">Laboratorium Ts</span>
+                                <span class="app-brand-text demo text-body fw-bolder">
+                                    <p class="mb-0">Laboratorium Ts </p>
+                                    <p class="mb-0 fs-4">Universitas Wiraraja</p>
+                                </span>
                             </a>
                         </div>
                         <!-- /Logo -->
@@ -72,9 +75,9 @@
                             method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="nrp" class="form-label">N P M</label>
-                                <input type="text" class="form-control" id="nrp" name="nim"
-                                    placeholder="Masukkan NPM anda" autofocus />
+                                <label for="username" class="form-label">NPM / NIDN / NIK</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                       placeholder="NPM / NIDN / NIK" />
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
@@ -116,7 +119,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body pb-1 pt-1">
-                  <p class="mb-0">Silahkan mendatangi admin lab untuk mengatur ulang password...</p>             
+                  <p class="mb-0">Silahkan mendatangi admin lab untuk mengatur ulang password...</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">

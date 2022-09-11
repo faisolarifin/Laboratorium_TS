@@ -17,36 +17,40 @@
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-striped">
-                            <tr class="table-primary">
-                                <td width="20">No.</td>
-                                <td width="330">Nama Praktikum</td>
-                                <td width="190">Harga</td>
-                                <td>Deskripsi</td>
-                                <td width="130">Aksi</td>
-                            </tr>
-                            @php($no = 0)
-                            @foreach ($matkum as $row)
-                                <tr>
-                                    <td>{{ ++$no }}</td>
-                                    <td>{{ $row->nama_mp }}</td>
-                                    <td>Rp. {{ number_format($row->harga, 2) }}</td>
-                                    <td>{{ $row->deksripsi ?? '-' }}</td>
-                                    <td>
-                                        <a href="{{ route('adm.master.ematkum', $row->id_mp) }}"><button
-                                                class="btn btn-sm btn-info"><i class='bx bxs-edit'></i></button></a>
-                                        <form class="d-inline" action="{{ route('adm.master.dmatkum') }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="kode_prak" value="{{ $row->id_mp }}">
-                                            <button type="submit" class="btn btn-sm btn-danger"><i
-                                                    class='bx bx-trash-alt'></i></button>
-                                        </form>
-                                    </td>
+                        <table class="table table-striped table-bordered" id="mytable">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th width="20">No.</th>
+                                    <th width="330">Nama Praktikum</th>
+                                    <th width="190">Harga</th>
+                                    <th>Deskripsi</th>
+                                    <th width="130">Aksi</th>
                                 </tr>
-                            @endforeach
-                        </table>
+                            </thead>
+                            <tbody>
 
+                                @php($no = 0)
+                                @foreach ($matkum as $row)
+                                    <tr>
+                                        <td>{{ ++$no }}</td>
+                                        <td>{{ $row->nama_mp }}</td>
+                                        <td>Rp. {{ number_format($row->harga, 2) }}</td>
+                                        <td>{{ $row->deksripsi ?? '-' }}</td>
+                                        <td>
+                                            <a href="{{ route('adm.master.ematkum', $row->id_mp) }}"><button
+                                                    class="btn btn-sm btn-info"><i class='bx bxs-edit'></i></button></a>
+                                            <form class="d-inline" action="{{ route('adm.master.dmatkum') }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="kode_prak" value="{{ $row->id_mp }}">
+                                                <button type="submit" class="btn btn-sm btn-danger"><i
+                                                        class='bx bx-trash-alt'></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

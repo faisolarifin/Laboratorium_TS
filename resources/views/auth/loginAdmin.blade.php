@@ -68,7 +68,10 @@
                   <span class="app-brand-logo demo">
                     <img src="{{asset('assets/img/logo/logo.png')}}" width="80" alt="..">
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Laboratorium Ts</span>
+                  <span class="app-brand-text demo text-body fw-bolder">
+                    <p class="mb-0">Laboratorium Ts</p>
+                    <p class="mb-0 fs-4">Universitas Wiraraja</p>
+                </span>
                 </a>
               </div>
               <!-- /Logo -->

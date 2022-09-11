@@ -17,21 +17,21 @@
 
                         <table class="table table-striped">
                             <tr>
-                                <td>Nama Kelompok : {{ strtoupper($matkum->nm_kel) }}</td>
+                                <th>Nama Kelompok : {{ strtoupper($matkum->nm_kel) }}</th>
                             </tr>
                             <tr>
-                                <td>Nama Praktikum : {{ $matkum->matkum->nama_mp }}</td>
+                                <th>Nama Praktikum : {{ $matkum->matkum->nama_mp }}</th>
                             </tr>
                             <tr>
-                                <td>Tahun Ajaran : {{ $matkum->periode->thn_ajaran }}</td>
+                                <th>Tahun Ajaran : {{ $matkum->periode->thn_ajaran }}</th>
                             </tr>
                             <tr>
-                                <td>Semeseter : {{ $matkum->periode->semester }}</td>
+                                <th>Semeseter : {{ $matkum->periode->semester }}</th>
                             </tr>
 
                         </table>
 
-                        <table class="table table-striped">
+                        <table class="table table-striped table-bordered mt-1">
                             <tr>
                                 <th colspan="5">
                                     <form class="d-inline" action="{{ route('adm.prak.tmbjadwal') }}" method="post">
@@ -47,8 +47,8 @@
                                 </th>
                             </tr>
                             <tr class="table-primary">
-                                <td>Tanggal</td>
-                                <td>Aksi</td>
+                                <th>Tanggal</th>
+                                <th>Aksi</th>
                             </tr>
                             @foreach ($jadwal_prak as $row)
                                 <tr>

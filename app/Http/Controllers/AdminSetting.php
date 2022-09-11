@@ -18,16 +18,13 @@ class AdminSetting extends Controller
         return view('admin.setting.indexSetting', compact('setting', 'periode'));
     }
     public function updateSetting(Request $request)
-    {    
+    {
         Setting::find(1)->update([
             'dekan' => $request->dekan,
             'kaprodi' => $request->kaprodi,
             'kalab' => $request->kalab,
             'periode_aktif' => $request->periode,
             'praktikum' => ($request->sw_prak == 'on') ? 'on' : 'off',
-        ]);
-        Admin::find(1)->update([
-            'nama' => $request->kalab,
         ]);
         return redirect()->back()->with('success', 'Pengaturan telah diubah');
     }

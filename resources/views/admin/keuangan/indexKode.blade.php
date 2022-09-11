@@ -17,33 +17,37 @@
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-striped">
-                            <tr class="table-primary">
-                                <td width="130">Kode</td>
-                                <td width="350">Harga</td>
-                                <td>Keterangan</td>
-                                <td width="130">Aksi</td>
-                            </tr>
-                            @foreach ($kode as $row)
-                                <tr>
-                                    <td>{{ $row->nm_kode }}</td>
-                                    <td>Rp. {{ number_format($row->harga, 2) }}</td>
-                                    <td>{{ $row->ket ?? '-' }}</td>
-                                    <td>
-                                        <a href="{{ route('adm.keu.ekode', $row->id) }}"><button
-                                                class="btn btn-sm btn-info"><i class='bx bxs-edit'></i></button></a>
-                                        <form class="d-inline" action="{{ route('adm.keu.dkode') }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="kode" value="{{ $row->id }}">
-                                            <button type="submit" class="btn btn-sm btn-danger"><i
-                                                    class='bx bx-trash-alt'></i></button>
-                                        </form>
-                                    </td>
+                        <table class="table table-striped table-bordered" id="mytable">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th width="130">Kode</th>
+                                    <th width="250">Harga</th>
+                                    <th>Keterangan</th>
+                                    <th width="130">Aksi</th>
                                 </tr>
-                            @endforeach
-                        </table>
+                            </thead>
+                            <tbody>
 
+                                @foreach ($kode as $row)
+                                    <tr>
+                                        <td>{{ $row->nm_kode }}</td>
+                                        <td>Rp. {{ number_format($row->harga, 2) }}</td>
+                                        <td>{{ $row->ket ?? '-' }}</td>
+                                        <td>
+                                            <a href="{{ route('adm.keu.ekode', $row->id) }}"><button
+                                                    class="btn btn-sm btn-info"><i class='bx bxs-edit'></i></button></a>
+                                            <form class="d-inline" action="{{ route('adm.keu.dkode') }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="kode" value="{{ $row->id }}">
+                                                <button type="submit" class="btn btn-sm btn-danger"><i
+                                                        class='bx bx-trash-alt'></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

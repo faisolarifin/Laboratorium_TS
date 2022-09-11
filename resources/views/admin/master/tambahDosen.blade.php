@@ -24,10 +24,10 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="nip">NIP</label>
+                                <label class="col-sm-2 col-form-label" for="nidn">NIDN</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control w-50" id="nip"
-                                        placeholder="NIP" name="nip" />
+                                    <input type="text" class="form-control w-50" id="nidn"
+                                        placeholder="NIDN" name="nidn" />
                                 </div>
                             </div>
                             <div class="row mb-3">

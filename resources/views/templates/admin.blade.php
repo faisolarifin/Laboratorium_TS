@@ -44,9 +44,24 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables/dataTables.bootstrap5.min.css')}}" />
 
     <!-- Page CSS -->
+      <style>
+          #layout-menu .menu-header {
+              margin-top: 0;
+              margin-bottom: 0;
+          }
+          .content-wrapper table td {
+              font-size: .88em;
+              padding-top: .21rem;
+              padding-bottom: .21rem;
+          }
+          .content-wrapper button {
+              font-size: .8em;
+              padding: .2em .45em;
+          }
+      </style>
 
     <!-- Helpers -->
     <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
@@ -87,38 +102,41 @@
               </a>
             </li>
 
-            <!-- Layouts -->
-        
+            <!-- Master Data -->
+              <li class="menu-header small text-uppercase">
+                  <span class="menu-header-text">Master</span>
+              </li>
+              <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                      <i class="menu-icon tf-icons bx bx-copy-alt"></i>
+                      <div data-i18n="Account Settings">Master Data</div>
+                  </a>
+                  <ul class="menu-sub">
+                      <li class="menu-item">
+                          <a href="{{route('adm.master.user')}}" class="menu-link">
+                              <div data-i18n="Account">Data Pengguna</div>
+                          </a>
+                      </li>
+                      <li class="menu-item">
+                          <a href="{{route('adm.master.dsn')}}" class="menu-link">
+                              <div data-i18n="Account">Data Dosen</div>
+                          </a>
+                      </li>
+                      <li class="menu-item">
+                          <a href="{{route('adm.master.matkum')}}" class="menu-link">
+                              <div data-i18n="Account">Data Praktikum</div>
+                          </a>
+                      </li>
+                      <li class="menu-item">
+                          <a href="{{route('adm.master.periode')}}" class="menu-link">
+                              <div data-i18n="Account">Data Periode</div>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+            <!-- Praktikum -->
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Praktikum</span>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-copy-alt"></i>
-                <div data-i18n="Account Settings">Master Data</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{route('adm.master.mhs')}}" class="menu-link">
-                    <div data-i18n="Account">Data Mahasiswa</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{route('adm.master.dsn')}}" class="menu-link">
-                    <div data-i18n="Account">Data Dosen</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{route('adm.master.matkum')}}" class="menu-link">
-                    <div data-i18n="Account">Data Praktikum</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{route('adm.master.periode')}}" class="menu-link">
-                    <div data-i18n="Account">Data Periode</div>
-                  </a>
-                </li>
-              </ul>
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -148,26 +166,23 @@
                 </li>
               </ul>
             </li>
-                
+
             <!-- Misc -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Keuangan</span></li>
             <li class="menu-item">
-              <a
-                href="{{route('adm.keu.kasp')}}"
-                class="menu-link">
-                <i class="menu-icon tf-icons bx bx-wallet-alt"></i>
-                <div data-i18n="Documentation">Kas Periode</div>
-              </a>
-            </li>
-            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-bar-chart-alt"></i>
+                <i class="menu-icon tf-icons bx bx-dollar"></i>
                 <div data-i18n="Account Settings">Kas</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="{{route('adm.keu.kode')}}" class="menu-link">
                     <div data-i18n="Account">Kode Kas</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{route('adm.keu.kasp')}}" class="menu-link">
+                    <div data-i18n="Account">Kas Periode</div>
                   </a>
                 </li>
                 <li class="menu-item">
@@ -178,24 +193,46 @@
               </ul>
             </li>
 
+              <li class="menu-header small text-uppercase"><span class="menu-header-text">Sewa Alat</span></li>
+              <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                      <i class="menu-icon tf-icons bx bx-paint"></i>
+                      <div data-i18n="Account Settings">Penyewaan</div>
+                  </a>
+                  <ul class="menu-sub">
+                      <li class="menu-item">
+                          <a href="{{route('adm.sewa.alat.i')}}" class="menu-link">
+                              <div data-i18n="Account">Daftar Alat</div>
+                          </a>
+                      </li>
+                      <li class="menu-item">
+                          <a href="{{route('adm.sewa.i')}}" class="menu-link">
+                              <div data-i18n="Account">Daftar Penyewaan</div>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Inventaris</span></li>
-            <li class="menu-item">
-              <a
-                href="{{route('adm.inv.bahan')}}"
-                class="menu-link">
-                <i class="bx bx-git-pull-request me-2"></i>
-                <div data-i18n="Documentation">Alat Bahan</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a
-                href="{{route('adm.inv.permohon')}}"
-                class="menu-link">
-                <i class="bx bx-chart me-2"></i>
-                <div data-i18n="Documentation">Permohonan</div>
-              </a>
-            </li>
-            
+              <li class="menu-item">
+                  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                      <i class="menu-icon tf-icons bx bx-git-pull-request"></i>
+                      <div data-i18n="Account Settings">Inventaris</div>
+                  </a>
+                  <ul class="menu-sub">
+                      <li class="menu-item">
+                          <a href="{{route('adm.inv.bahan')}}" class="menu-link">
+                              <div data-i18n="Account">Alat Bahan</div>
+                          </a>
+                      </li>
+                      <li class="menu-item">
+                          <a href="{{route('adm.inv.permohon')}}" class="menu-link">
+                              <div data-i18n="Account">Permohonan</div>
+                          </a>
+                      </li>
+                  </ul>
+              </li>
+
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Setting</span></li>
             <li class="menu-item">
               <a
@@ -251,7 +288,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="{{asset('assets/img/avatars/1.jpg')}}" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="{{Storage::url(Auth::user()->foto)}}" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -260,16 +297,14 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="{{asset('assets/img/avatars/1.jpg')}}" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="{{Storage::url(Auth::user()->foto)}}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            @if(Session::has('nama'))
                             <span class="fw-semibold d-block">
-                              {{ Session::get('nama')}}
+                              {{Auth::user()->nama}}
                             </span>
-                            @endif
-                            <small class="text-muted">Admin</small>
+                            <small class="text-muted">{{Auth::user()->role}}</small>
                           </div>
                         </div>
                       </a>
@@ -339,18 +374,9 @@
   </div>
   <!-- / Layout wrapper -->
 
-  {{-- <div class="buy-now">
-    <a
-      href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"
-      target="_blank"
-      class="btn btn-danger btn-buy-now"
-      >Upgrade to Pro</a
-    >
-  </div> --}}
-
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
-  <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
+  <script src="{{asset('assets/vendor/libs/jquery/jquery-3.5.1.js')}}"></script>
   <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
   <script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
   <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
@@ -359,13 +385,19 @@
   <!-- endbuild -->
 
   <!-- Vendors JS -->
-  <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
+  <script src="{{asset('assets/vendor/libs/datatables/jquery.dataTables.min.js')}}"></script>
+  <script src="{{asset('assets/vendor/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
 
   <!-- Main JS -->
   <script src="{{asset('assets/js/main.js')}}"></script>
 
   <!-- Page JS -->
   <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
+  <script>
+      $(document).ready(function () {
+          $('#mytable').DataTable();
+      });
+  </script>
 
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

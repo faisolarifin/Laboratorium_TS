@@ -7,11 +7,7 @@ use App\Models\Praktikum\{
     MatkulPraktikum,
     PendaftarAcc,
 };
-use App\Models\{
-    Dosen,
-    AkunMhs,
-    Periode,
-};
+use App\Models\{Dosen, AkunMhs, Periode, User};
 
 class AdminMaster extends Controller
 {
@@ -33,25 +29,24 @@ class AdminMaster extends Controller
         return view('admin.master.indexDosen', compact('dosen'));
     }
 
-    public function indexDataMahasiswa()
+    public function indexDataPengguna()
     {
-        $mhs = AkunMhs::all();
-        return view('admin.master.indexMhs', compact('mhs'));
+        $user = User::orderBy('role', 'asc')->get();
+        return view('admin.master.indexUser', compact('user'));
     }
-    public function resetMahasiswa(Request $request)
+    public function resetPengguna(Request $request)
     {
-        AkunMhs::find($request->kode_mhs)->update([
-            'password' => AkunMhs::find($request->kode_mhs)->nim,
+        User::find($request->kode_user)->update([
             'status' => 'aktif',
         ]);
-        return redirect()->back()->with('success', 'Password mahasiswa telah direset dengan NRP');
+        return redirect()->back()->with('success', 'Akun pengguna berhasil dipulihkan');
     }
-    public function blockMahasiswa(Request $request)
+    public function blockPengguna(Request $request)
     {
-        AkunMhs::find($request->kode_mhs)->update([
+        User::find($request->kode_user)->update([
             'status' => 'block',
         ]);
-        return redirect()->back()->with('success', 'Mahasiswa telah di block');
+        return redirect()->back()->with('success', 'Akun pengguna telah di block');
     }
     public function tambahDataPeriode()
     {
@@ -154,7 +149,7 @@ class AdminMaster extends Controller
     {
         Dosen::create([
             'nama' => $request->nm_dosen,
-            'nip' => $request->nip,
+            'nidn' => $request->nidn,
             'jabatan' => $request->jabatan,
             'alamat' => $request->alamat,
             'no_hp' => $request->no_hp,
@@ -177,7 +172,7 @@ class AdminMaster extends Controller
     {
         Dosen::find($request->kode_dosen)->update([
             'nama' => $request->nm_dosen,
-            'nip' => $request->nip,
+            'nidn' => $request->nidn,
             'jabatan' => $request->jabatan,
             'alamat' => $request->alamat,
             'no_hp' => $request->no_hp,
@@ -190,5 +185,5 @@ class AdminMaster extends Controller
     }
 
 
-    
+
 }

@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 
 <html
@@ -44,9 +41,9 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/libs/datatables/dataTables.bootstrap5.min.css')}}" />
 
-    <!-- Page CSS -->
+      <!-- Page CSS -->
 
     <!-- Helpers -->
     <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
@@ -117,12 +114,13 @@
                     Sewa Alat
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="javascript:void(0)">Action</a></li>
-                    <li><a class="dropdown-item" href="javascript:void(0)">Another action</a></li>
+                    <li><a class="dropdown-item" href="{{route('usr.alat')}}">Daftar Alat</a></li>
+                    <li><a class="dropdown-item" href="{{route('usr.sewa.f')}}">Form Penyewaan</a></li>
+                    <li><a class="dropdown-item" href="{{route('usr.sewa.r')}}">Penyewaan</a></li>
                     <li>
                       <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="javascript:void(0)">Something else here</a></li>
+                    <li><a class="dropdown-item" href="{{route('usr.sewa.h')}}">History Penyewaan</a></li>
                   </ul>
                 </li>
 
@@ -151,7 +149,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown ms-sm-5">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="{{Storage::url(Session::get('foto'))}}" alt class="rounded-circle" />
+                      <img src="{{Storage::url(Auth::user()->foto)}}" alt class="rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -160,12 +158,12 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="{{Storage::url(Session::get('foto'))}}" alt class="rounded-circle" />
+                              <img src="{{Storage::url(Auth::user()->foto)}}" alt class="rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">{{Session::get('nama')}}</span>
-                            <small class="text-muted">{{Session::get('role')}}</small>
+                            <span class="fw-semibold d-block">{{Auth::user()->nama}}</span>
+                            <small class="text-muted">{{Auth::user()->role}}</small>
                           </div>
                         </div>
                       </a>
@@ -201,7 +199,7 @@
             <div class="container flex-grow-1 container-p-y mt-sm-4">
 
               @yield('content')
-              
+
             </div>
             <!-- / Content -->
 
@@ -239,14 +237,20 @@
   <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
   <!-- endbuild -->
 
-  <!-- Vendors JS -->
-  <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
+    <!-- Vendors JS -->
+    <script src="{{asset('assets/vendor/libs/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/vendor/libs/datatables/dataTables.bootstrap5.min.js')}}"></script>
 
   <!-- Main JS -->
   <script src="{{asset('assets/js/main.js')}}"></script>
 
   <!-- Page JS -->
   <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#mytable').DataTable();
+        });
+    </script>
 
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

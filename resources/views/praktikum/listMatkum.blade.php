@@ -1,4 +1,4 @@
-@extends('templates.mhs')
+@extends('templates.user')
 
 @section('content')
     <div class="row">
@@ -12,7 +12,7 @@
                     <h5 class="mb-0">Pilihan Praktikum</h5>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="mytable">
                         <thead>
                             <tr class="table-primary">
                                 <th>Nama Matkul</th>
@@ -30,7 +30,7 @@
                                             @csrf
                                             <input type="hidden" name="id_matkum" value="{{ $row->id_mp }}">
                                             <button type="submit" class="btn btn-sm btn-primary" title="Tambah Praktikum"><i
-                                                    class='bx bx-add-to-queue'></i></button>
+                                                        class='bx bx-add-to-queue'></i></button>
                                         </form>
                                     </td>
                                 </tr>

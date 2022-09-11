@@ -17,45 +17,45 @@
 
                         <table class="table table-striped">
                             <tr>
-                                <td>Nama Kelompok : {{ strtoupper($matkum->nm_kel) }}</td>
+                                <th>Nama Kelompok : {{ strtoupper($matkum->nm_kel) }}</th>
                             </tr>
                             <tr>
-                                <td>Nama Praktikum : {{ $matkum->matkum->nama_mp }}</td>
+                                <th>Nama Praktikum : {{ $matkum->matkum->nama_mp }}</th>
                             </tr>
                             <tr>
-                                <td>Tahun Ajaran : {{ $matkum->periode->thn_ajaran }}</td>
+                                <th>Tahun Ajaran : {{ $matkum->periode->thn_ajaran }}</th>
                             </tr>
                             <tr>
-                                <td>Semeseter : {{ $matkum->periode->semester }}</td>
+                                <th>Semeseter : {{ $matkum->periode->semester }}</th>
                             </tr>
                         </table>
 
-                        <table class="table table-striped">
+                        <table class="table table-striped table-bordered mt-1">
                             <tr>
                                 <th colspan="5">
-                                    Anggota Kelompok
-                                    <a href="{{ route('adm.prak.jadwal', $matkum->id_kel) }}"
-                                        class="btn btn-sm btn-primary float-end">Jadwal Praktikum</a>
+                                    <span>Anggota Kelompok</span>
+                                    <a href="{{ route('adm.prak.jadwal', $matkum->id_kel) }}">
+                                        <button class="btn btn-sm btn-primary float-end">Jadwal Praktikum</button></a>
                                 </th>
                             </tr>
                             <tr class="table-primary">
-                                <td>Foto</td>
-                                <td>Nama</td>
-                                <td>N P M</td>
-                                <td>Nilai Praktikum</td>
-                                <td>Aksi</td>
+                                <th>Foto</th>
+                                <th>Nama</th>
+                                <th>N P M</th>
+                                <th>Nilai Praktikum</th>
+                                <th>Aksi</th>
                             </tr>
                             @foreach ($anggota_kel as $row)
                                 <tr>
                                     <td><img src="{{ Storage::url($row->mhs->foto) }}" class="rounded" width="35"
                                             height="35" alt=".."></td>
                                     <td>{{ strtoupper($row->mhs->nama) }}</td>
-                                    <td>{{ $row->mhs->nim }}</td>
+                                    <td>{{ $row->mhs->username }}</td>
                                     <td>{{ $row->nilai }}</td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#smallModal"
-                                            data-bs="{{ $matkum->id_kel }}:{{ $row->mhs->id_mhs }}:{{ $row->mhs->nama }}:{{ $row->nilai }}">+</button>
+                                            data-bs="{{ $matkum->id_kel }}:{{ $row->mhs->id_user }}:{{ $row->mhs->nama }}:{{ $row->nilai }}">+</button>
                                     </td>
                                 </tr>
                             @endforeach

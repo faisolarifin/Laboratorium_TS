@@ -15,7 +15,7 @@
                         <h5 class="mb-0">Peserta Praktikum</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped">
+                        <table class="table table-striped mb-1">
                             <tr>
                                 <td class="px-0">
                                     @foreach ($matkum_periode as $row)
@@ -27,25 +27,25 @@
                         </table>
 
                         @if (count($list_pendaftar) > 0)
-                            <table class="table table-striped">
+                            <table class="table table-striped table-bordered">
                                 <tr class="table-primary">
-                                    <td>Foto</td>
-                                    <td>Nama</td>
-                                    <td>N P M</td>
-                                    <td>No. Hp</td>
-                                    <td>Aksi</td>
+                                    <th>Foto</th>
+                                    <th>Nama</th>
+                                    <th>N P M</th>
+                                    <th>No. Hp</th>
+                                    <th>Aksi</th>
                                 </tr>
                                 @foreach ($list_pendaftar as $row)
                                     <tr>
                                         <td><img src="{{ Storage::url($row->mhs->foto) }}" class="rounded" width="35"
                                                 height="35" alt=".."></td>
                                         <td>{{ strtoupper($row->mhs->nama) }}</td>
-                                        <td>{{ $row->mhs->nim }}</td>
+                                        <td>{{ $row->mhs->username }}</td>
                                         <td>{{ $row->mhs->no_hp }}</td>
                                         <td>
                                             <form class="d-inline" action="{{ route('adm.prak.bayar') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="kode_mhs" value="{{ $row->mhs_id_mhs }}">
+                                                <input type="hidden" name="kode_mhs" value="{{ $row->mhs->id_user }}">
                                                 <button type="submit" class="btn btn-sm btn-danger">x</button>
                                             </form>
                                         </td>

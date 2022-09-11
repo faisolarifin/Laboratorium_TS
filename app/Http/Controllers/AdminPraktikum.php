@@ -13,8 +13,9 @@ use App\Models\Praktikum\{
     MatkulPraktikum,
     PendaftarAcc,
     PendaftarAccd};
-    
+
 use App\Models\Dosen;
+use App\Exports\PraktikumExport;
 
 
 class AdminPraktikum extends Controller
@@ -26,10 +27,10 @@ class AdminPraktikum extends Controller
             'id_periode' => $id_periode
             ])->with('periode')
         ->with('mhs')->get();
-        
+
         return view('admin.praktikum.pendaftarPraktikum', compact('pendaftar'));
     }
-    
+
     public function accBayarPraktikum(Request $request)
     {;
         DaftarPraktikum::find($request->kode_daftar)->update([
@@ -49,7 +50,7 @@ class AdminPraktikum extends Controller
         $detail_daftar_matkum = DaftarPraktikumd::where([
             'id_daftarmp' => $request->kode_daftar,
             ])->with('matkum')->get();
-           
+
         foreach($detail_daftar_matkum as $row) {
             $matkum_per_periode = PendaftarAcc::where([
                 'id_periode' => $id_periode,
@@ -59,12 +60,12 @@ class AdminPraktikum extends Controller
             if ($matkum_per_periode !== null) {
                 if (PendaftarAccd::where([
                     'id_daftar' => $matkum_per_periode->id_daftar,
-                    'id_mhs' => $request->kode_mhs,
-                ])->first() == null) 
+                    'id_user' => $request->kode_mhs,
+                ])->first() == null)
                 {
                     PendaftarAccd::create([
                         'id_daftar' => $matkum_per_periode->id_daftar,
-                        'id_mhs' => $request->kode_mhs, 
+                        'id_user' => $request->kode_mhs,
                     ]);
                 }
             }
@@ -84,7 +85,7 @@ class AdminPraktikum extends Controller
         $detail_daftar_matkum = DaftarPraktikumd::where([
             'id_daftarmp' => $pendaftar->id_daftarmp,
         ])->with('matkum')->get();
-       
+
         return view('admin.praktikum.detailpendaftarPraktikum', compact('pendaftar', 'detail_daftar_matkum'));
     }
 
@@ -98,7 +99,7 @@ class AdminPraktikum extends Controller
         $list_pendaftar = PendaftarAccd::where([
             'id_daftar' => $id_dft,
         ])->with('mhs')->get();
-        
+
         return view('admin.praktikum.pendaftarPerMatkum', compact('matkum_periode', 'list_pendaftar'));
     }
 
@@ -107,12 +108,12 @@ class AdminPraktikum extends Controller
         ##buat kelompok
         $Lmhs = PendaftarAccd::where([
             'id_daftar' => $request->kode_daftar,
-        ])->pluck('id_mhs')->toArray();
+        ])->pluck('id_user')->toArray();
 
         $n = count($Lmhs);
         $x = range(0, $n-1);shuffle($x);
         $Lkel = array();
-        
+
         $nk = $request->jml_kelompok;
         $isi=true;
         for($i=0;$i<$nk;$i++) {
@@ -148,7 +149,7 @@ class AdminPraktikum extends Controller
             foreach($kel as $row) {
                 DaftarAnggotaKelompok::create([
                     'id_kel' => $create_kel->id_kel,
-                    'id_mhs' => $row,
+                    'id_user' => $row,
                     'nilai' => '',
                 ]);
             }
@@ -202,7 +203,7 @@ class AdminPraktikum extends Controller
         $matkum = DaftarKelompok::where([
             'id_kel' => $kode_kel,
         ])->with('periode')->with('matkum')->first();
-        
+
         $anggota_kel = DaftarAnggotaKelompok::where([
             'id_kel' => $kode_kel,
         ])->with('mhs')->get();
@@ -213,7 +214,7 @@ class AdminPraktikum extends Controller
     {
         DaftarAnggotaKelompok::where([
             'id_kel' => $request->kode_kel,
-            'id_mhs' => $request->kode_mhs,
+            'id_user' => $request->kode_mhs,
         ])->update([
             'nilai' => $request->nilai
         ]);
@@ -227,7 +228,7 @@ class AdminPraktikum extends Controller
 
         $jadwal_prak = JadwalPraktikum::where([
             'id_kel' => $kode_kel,
-        ])->get();        
+        ])->get();
 
         return view('admin.praktikum.jadwalKelompokPraktikum', compact('matkum', 'jadwal_prak'));
     }
@@ -245,7 +246,7 @@ class AdminPraktikum extends Controller
     {
         JadwalPraktikum::where([
             'id_jadwal' => $request->kode_jad,
-        ])->delete();        
+        ])->delete();
         return redirect()->back()->with('Jadwal berhasil dihapus');
     }
 
@@ -265,37 +266,32 @@ class AdminPraktikum extends Controller
 
         return view('admin.praktikum.historyPraktikum', compact('matkum_periode', 'hist_praktikum'));
     }
-    
-    public function createPeriode()
+    public function exportDafdirPerMatkum()
     {
-        // $id_periode = 1; //sesuikan dengan di pengaturan
-        // foreach(MatkulPraktikum::all() as $row){
-        //     if (PendaftarAcc::where([
-        //         'id_mp' => $row->id_mp,
-        //         'id_periode' => $id_periode,
-        //         ])->first() == null)
-        //     {
-        //         PendaftarAcc::create([
-        //             'id_mp' => $row->id_mp,
-        //             'id_periode' => $id_periode,
-        //         ]);
-        //     }
-        // }
-
-
-        $dosen = array();
-        foreach(DaftarKelompok::select('penguji','penguji2')->where([
-            'id_periode' => 1,
-            'id_mp' => 1,
-        ])->with('pgj')->with('pgj2')->get() as $row) {
-            array_push($dosen, $row->pgj->nama, $row->pgj2->nama);
-        }
-        $dosen = array_unique($dosen);
-
-        dump($dosen);
-
-        
-
-
+        return PraktikumExport::exportDafdirPerMatkum();
+    }
+    public function exportPenjadwalan()
+    {
+        return PraktikumExport::exportPenjadwalan();
+    }
+    public function exportDafdirPenguji()
+    {
+        return PraktikumExport::exportDafdirPenguji();
+    }
+    public function exportDaftarHadir()
+    {
+        return PraktikumExport::exportDaftarHadir();
+    }
+    public function exportBAPelaksanaan()
+    {
+        return PraktikumExport::exportBAPelaksanaanPerMatkum();
+    }
+    public function exportBAUjian()
+    {
+        return PraktikumExport::exportBAUjianPerMatkum();
+    }
+    public function exportSertifikat()
+    {
+        return PraktikumExport::exportSertifikat();
     }
 }

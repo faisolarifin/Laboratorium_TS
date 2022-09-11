@@ -17,39 +17,43 @@
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-striped">
-                            <tr class="table-primary">
-                                <td>Tahun</td>
-                                <td>Keterangan</td>
-                                <td>Saldo Awal</td>
-                                <td>Sisa Saldo</td>
-                                {{-- <td>Total Debit</td> --}}
-                                {{-- <td>Total Kredit</td> --}}
-                                <td>Aksi</td>
-                            </tr>
-                            @foreach ($kas as $row)
-                                <tr>
-                                    <td>{{ $row->periode->thn_ajaran. ' '.$row->periode->semester }}</td>
-                                    <td>{{ $row->ket ?? '-' }}</td>
-                                    <td>Rp. {{ number_format($row->saldo_awal, 2) }}</td>
-                                    <td>Rp. {{ number_format($row->sisa_saldo, 2) }}</td>
-                                    {{-- <td></td> --}}
-                                    {{-- <td></td> --}}
-                                    <td>
-                                        <a href="{{ route('adm.keu.ekasp', $row->id_kasp) }}"><button
-                                                class="btn btn-sm btn-info"><i class='bx bxs-edit'></i></button></a>
-                                        <form class="d-inline" action="{{ route('adm.keu.dkasp') }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="kode_kasp" value="{{ $row->id_kasp }}">
-                                            <button type="submit" class="btn btn-sm btn-danger"><i
-                                                    class='bx bx-trash-alt'></i></button>
-                                        </form>
-                                    </td>
+                        <table class="table table-striped table-bordered" id="mytable">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th>Tahun</th>
+                                    <th>Keterangan</th>
+                                    <th>Saldo Awal</th>
+                                    <th>Sisa Saldo</th>
+                                    {{-- <td>Total Debit</td> --}}
+                                    {{-- <td>Total Kredit</td> --}}
+                                    <th>Aksi</th>
                                 </tr>
-                            @endforeach
-                        </table>
+                            </thead>
+                            <tbody>
 
+                                @foreach ($kas as $row)
+                                    <tr>
+                                        <td>{{ $row->periode->thn_ajaran. ' '.$row->periode->semester }}</td>
+                                        <td>{{ $row->ket ?? '-' }}</td>
+                                        <td>Rp. {{ number_format($row->saldo_awal, 2) }}</td>
+                                        <td>Rp. {{ number_format($row->sisa_saldo, 2) }}</td>
+                                        {{-- <td></td> --}}
+                                        {{-- <td></td> --}}
+                                        <td>
+                                            <a href="{{ route('adm.keu.ekasp', $row->id_kasp) }}"><button
+                                                    class="btn btn-sm btn-info"><i class='bx bxs-edit'></i></button></a>
+                                            <form class="d-inline" action="{{ route('adm.keu.dkasp') }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="kode_kasp" value="{{ $row->id_kasp }}">
+                                                <button type="submit" class="btn btn-sm btn-danger"><i
+                                                        class='bx bx-trash-alt'></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

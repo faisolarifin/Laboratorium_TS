@@ -97,15 +97,26 @@
                     value="{{old('nama')}}"
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="nim" class="form-label">N P M</label>
+                  <div class="mb-3 form-password-toggle">
+                      <div class="d-flex justify-content-between">
+                          <label class="form-label" for="role">Status</label>
+                      </div>
+                      <div class="input-group input-group-merge">
+                          <select class="form-select" id="role" name="role">
+                              <option value="mahasiswa">Mahasiswa</option>
+                              <option value="dosen">Dosen</option>
+                              <option value="umum">Umum</option>
+                          </select>
+                      </div>
+                  </div>
+                <div class="mb-3" id="nomer">
+                  <label for="username" class="form-label">NPM</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="nim"
-                    name="nim"
-                    placeholder="N P M"
-                    value="{{old('nim')}}"
+                    id="username"
+                    name="username"
+                    placeholder="NPM"
                   />
                 </div>
                 <div class="mb-3 form-password-toggle">
@@ -124,20 +135,20 @@
                   </div>
                 </div>
                 <div class="mb-3 form-password-toggle">
-                  <div class="d-flex justify-content-between">
-                    <label class="form-label" for="konfirmasi">Konfirmasi Password</label>
+                      <div class="d-flex justify-content-between">
+                          <label class="form-label" for="konfirmasi">Konfirmasi Password</label>
+                      </div>
+                      <div class="input-group input-group-merge">
+                          <input
+                              type="password"
+                              id="konfirmasi"
+                              class="form-control"
+                              name="konfirmasi"
+                              placeholder="Konfirmasi Password"
+                              aria-describedby="konfirmasi"
+                          />
+                      </div>
                   </div>
-                  <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="konfirmasi"
-                      class="form-control"
-                      name="konfirmasi"
-                      placeholder="Konfirmasi Password"
-                      aria-describedby="konfirmasi"
-                    />
-                  </div>
-                </div>
 
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Daftar</button>
@@ -167,6 +178,23 @@
   <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
 
   <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
+    <script>
+        $('body').on('change', '#role', function() {
+            nomer = $('#nomer');
+            if ($(this).val() == 'mahasiswa') {
+                nomer.find('label').text('N P M');
+                nomer.find('input').attr('placeholder', 'N P M')
+            }
+            else if ($(this).val() == 'dosen') {
+                nomer.find('label').text('NIDN');
+                nomer.find('input').attr('placeholder', 'NIDN')
+            }
+            else if ($(this).val() == 'umum') {
+                nomer.find('label').text('N I K');
+                nomer.find('input').attr('placeholder', 'N I K')
+            }
+        })
+    </script>
 
     <!-- Page JS -->
 

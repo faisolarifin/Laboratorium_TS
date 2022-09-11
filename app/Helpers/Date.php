@@ -19,8 +19,17 @@ class Date {
             'Desember'
         );
         $pecahkan = explode('-', $tanggal);
-     
+
         return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+    }
+
+    public static function tglReverse($tanggal)
+    {
+        $pecahkan = explode('-', $tanggal);
+
+        if (count($pecahkan) == 1) return "";
+
+        return $pecahkan[2] . '/' . $pecahkan[1] . '/' . $pecahkan[0];
     }
 
     public static function hariIni($tanggal){
@@ -32,38 +41,38 @@ class Date {
             case 'Sun':
                 $hari_ini = "Minggu";
             break;
-     
-            case 'Mon':			
+
+            case 'Mon':
                 $hari_ini = "Senin";
             break;
-     
+
             case 'Tue':
                 $hari_ini = "Selasa";
             break;
-     
+
             case 'Wed':
                 $hari_ini = "Rabu";
             break;
-     
+
             case 'Thu':
                 $hari_ini = "Kamis";
             break;
-     
+
             case 'Fri':
                 $hari_ini = "Jumat";
             break;
-     
+
             case 'Sat':
                 $hari_ini = "Sabtu";
             break;
-            
+
             default:
-                $hari_ini = "Tidak di ketahui";		
+                $hari_ini = "Tidak di ketahui";
             break;
         }
-     
+
         return $hari_ini;
-     
+
     }
 }
 

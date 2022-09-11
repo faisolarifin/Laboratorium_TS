@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Dosen extends Model
 {
     use HasFactory;
-    protected $table = 'mast_dosen';
+    protected $table = 'tbl_dosen';
     protected $primaryKey = 'id_dosen';
     protected $fillable = [
-        'nip',
+        'nidn',
         'nama',
         'jabatan',
         'alamat',

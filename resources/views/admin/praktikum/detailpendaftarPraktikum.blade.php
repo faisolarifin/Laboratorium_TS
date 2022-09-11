@@ -17,18 +17,18 @@
 
                         <table class="table table-striped">
                             <tr>
-                                <td>Nama : {{ $pendaftar->mhs->nama }}</td>
+                                <th>Nama : {{ $pendaftar->mhs->nama }}</th>
                             </tr>
                             <tr>
-                                <td>NRP : {{ $pendaftar->mhs->nim }}</td>
+                                <th>NRP : {{ $pendaftar->mhs->username }}</th>
                             </tr>
                             <tr>
-                                <td>Periode Praktikum : {{ $pendaftar->periode->thn_ajaran }}</td>
+                                <th>Periode Praktikum : {{ $pendaftar->periode->thn_ajaran }}</th>
                             </tr>
 
                         </table>
 
-                        <table class="table table-striped">
+                        <table class="table table-striped mt-1">
                             <tr class="table-primary">
                                 <th>Nama Matkul</th>
                                 <th>Harga</th>
@@ -41,14 +41,12 @@
                                 </tr>
                                 @php($total += $row->matkum->harga)
                             @endforeach
-                        </table>
 
-                        <table class="table table-striped">
                             <tr>
-                                <td>
-                                    <h5>Total Biaya : Rp. {{ number_format($total) }}</h5>
+                                <th>
+                                    <h5 class="mb-0">Total Biaya : Rp. {{ number_format($total) }}</h5>
                                 </td>
-                                <td>
+                                <th>
                                     <form class="d-inline" action="{{ route('adm.prak.bayar') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="kode_daftar" value="{{ Request::segment(4) }}">
@@ -58,10 +56,10 @@
                                     <form class="d-inline" action="{{ route('adm.prak.accfix') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="kode_daftar" value="{{ Request::segment(4) }}">
-                                        <input type="hidden" name="kode_mhs" value="{{ $pendaftar->mhs->id_mhs }}">
+                                        <input type="hidden" name="kode_mhs" value="{{ $pendaftar->mhs->id_user }}">
                                         <button type="submit" class="btn btn-success">Terima</button>
                                     </form>
-                                </td>
+                                </th>
                             </tr>
 
                         </table>

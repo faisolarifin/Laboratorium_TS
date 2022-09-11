@@ -186,25 +186,22 @@ class AdminKeuangan extends Controller
         {
             $kembalikan_saldo = 0;
             $kasp_lama = KasPeriode::find($pilih_kas->id_kasp);
-            $kasp_update = KasPeriode::find($request->kasp);
             if ($pilih_kas->tipe == 'debit')
             {
                 $kembalikan_saldo = $kasp_lama->sisa_saldo - $pilih_kas->total;
-                KasPeriode::find($pilih_kas->id_kasp)->update(['sisa_saldo' => $kembalikan_saldo]);
                 KasPeriode::find($request->kasp)->update([
-                    'sisa_saldo' => $kasp_update->sisa_saldo + $total,
+                    'sisa_saldo' => $kembalikan_saldo + $total,
                 ]);
             }
             else if ($pilih_kas->tipe == 'kredit')
             {
                 $kembalikan_saldo = $pilih_kas->sisa_saldo + $pilih_kas->total;
-                KasPeriode::find($kasp_lama->id_kasp)->update(['sisa_saldo' => $kembalikan_saldo]);
                 KasPeriode::find($request->kasp)->update([
-                    'sisa_saldo' => $kasp_update->sisa_saldo - $total,
+                    'sisa_saldo' => $kembalikan_saldo - $total,
                 ]);
             }
         }
-        
+
         if ($pilih_kas->tipe != $request->tipe)
         {
             $saldo = KasPeriode::find($request->kasp)->sisa_saldo;

@@ -1,3 +1,0 @@
-php artisan migrate:rollback --path=./database/migrations/praktikum/
-php artisan migrate --path=./database/migrations/praktikum/
-php artisan migrate:refresh --path=./database/migrations/praktikum/

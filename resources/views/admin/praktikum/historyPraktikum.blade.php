@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-striped">
+                        <table class="table table-striped mb-2">
                             <tr>
                                 <td class="px-0">
                                     @foreach ($matkum_periode as $row)
@@ -26,36 +26,40 @@
                             </tr>
                         </table>
 
-                        <table class="table table-striped">
-                            <tr class="table-primary">
-                                <td>Periode</td>
-                                <td>Semester</td>
-                                <td>N P M</td>
-                                <td>Nama</td>
-                                <td>Nama Pratikum</td>
-                                <td>Nilai</td>
-                                <td>Sertifikat</td>
-                            </tr>
-                            @foreach ($hist_praktikum as $row)
-                                <tr>
-                                    <td>{{ $row->parent->periode->thn_ajaran }}</td>
-                                    <td>{{ $row->parent->periode->semester }}</td>
-                                    <td>{{ $row->mhs->nim }}</td>
-                                    <td>{{ $row->mhs->nama }}</td>
-                                    <td>{{ $row->parent->matkum->nama_mp }}</td>
-                                    <td>{{ $row->nilai }}</td>
-                                    <td>
-                                        <form class="d-inline" action="{{ route('adm.export.sertif') }}" method="post">
-                                            @csrf
-                                            <input type="hidden" name="kode_kel" value="{{ $row->id_kel }}">
-                                            <input type="hidden" name="kode_mhs" value="{{ $row->mhs->id_mhs }}">
-                                            <button type="submit" class="btn btn-sm btn-warning" {{($row->nilai=='') ? 'disabled' : ''}}><i class='bx bxs-download'></i></button>
-                                        </form>
-                                    </td>
+                        <table class="table table-striped table-bordered" id="mytable">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th>Periode</th>
+                                    <th>Semester</th>
+                                    <th>N P M</th>
+                                    <th>Nama</th>
+                                    <th>Nama Pratikum</th>
+                                    <th>Nilai</th>
+                                    <th>Sertifikat</th>
                                 </tr>
-                            @endforeach
-                        </table>
+                            </thead>
+                            <tbody>
 
+                                @foreach ($hist_praktikum as $row)
+                                    <tr>
+                                        <td>{{ $row->parent->periode->thn_ajaran }}</td>
+                                        <td>{{ $row->parent->periode->semester }}</td>
+                                        <td>{{ $row->mhs->username }}</td>
+                                        <td>{{ $row->mhs->nama }}</td>
+                                        <td>{{ $row->parent->matkum->nama_mp }}</td>
+                                        <td>{{ $row->nilai }}</td>
+                                        <td>
+                                            <form class="d-inline" action="{{ route('adm.export.sertif') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="kode_kel" value="{{ $row->id_kel }}">
+                                                <input type="hidden" name="kode_mhs" value="{{ $row->mhs->id_user }}">
+                                                <button type="submit" class="btn btn-sm btn-warning" {{($row->nilai=='') ? 'disabled' : ''}}><i class='bx bxs-download'></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

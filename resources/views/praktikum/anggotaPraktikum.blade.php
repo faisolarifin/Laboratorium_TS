@@ -1,4 +1,4 @@
-@extends('templates.mhs')
+@extends('templates.user')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                         <div class="mt-0">
                             @foreach ($matkum as $row)
                                 <a href="{{ route('mhs.kelompok', $row->id_mp) }}"
-                                    class="btn btn-sm {{ (Request::segment(2) ?? 1) == $row->id_mp ? 'btn-primary' : 'btn-outline-primary' }}">{{ $row->matkum->nama_mp }}</a>
+                                   class="btn btn-sm {{ (Request::segment(2) ?? 1) == $row->id_mp ? 'btn-primary' : 'btn-outline-primary' }}">{{ $row->matkum->nama_mp }}</a>
                             @endforeach
                         </div>
                     @endif
@@ -22,51 +22,51 @@
                     @if (@$kelompok && @$anggota)
                         <table class="table table-striped">
                             <thead>
-                                <tr>
-                                    <th colspan="3" class="px-0 pb-0">
-                                        <h4>{{ strtoupper($kelompok->nm_kel) }}</h4>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" class="px-0">
-                                        Tanggal Ujian : {{ @Date::tglIndo($kelompok->tgl_ujian) }}
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" class="px-0">
-                                        Asisten Praktikum : {{ @$kelompok->asprak ?? '-' }}
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" class="px-0">
-                                        Dosen Pembimbing : {{ @$kelompok->pbb->nama ?? '-' }}
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" class="px-0">
-                                        Dosen Penguji 1 : {{ $kelompok->pgj->nama ?? '-' }}
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" class="px-0">
-                                        Dosen Penguji 2 : {{ $kelompok->pgj2->nama ?? '-' }}
-                                    </th>
-                                </tr>
-                                <tr class="table-primary">
-                                    <th>Foto</th>
-                                    <th>N P M</th>
-                                    <th>Nama</th>
-                                </tr>
+                            <tr>
+                                <th colspan="3" class="px-0 pb-0">
+                                    <h4>{{ strtoupper($kelompok->nm_kel) }}</h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="3" class="px-0">
+                                    Tanggal Ujian : {{ @Date::tglIndo($kelompok->tgl_ujian) }}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="3" class="px-0">
+                                    Asisten Praktikum : {{ @$kelompok->asprak ?? '-' }}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="3" class="px-0">
+                                    Dosen Pembimbing : {{ @$kelompok->pbb->nama ?? '-' }}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="3" class="px-0">
+                                    Dosen Penguji 1 : {{ $kelompok->pgj->nama ?? '-' }}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="3" class="px-0">
+                                    Dosen Penguji 2 : {{ $kelompok->pgj2->nama ?? '-' }}
+                                </th>
+                            </tr>
+                            <tr class="table-primary">
+                                <th>Foto</th>
+                                <th>N P M</th>
+                                <th>Nama</th>
+                            </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                                @foreach ($anggota as $row)
-                                    <tr>
-                                        <td><img src="{{ Storage::url($row->mhs->foto) }}" class="rounded" width="35"
-                                            height="35" alt=".."></td>
-                                        <td>{{ $row->mhs->nim }}</td>
-                                        <td>{{ strtoupper($row->mhs->nama) }}</td>
-                                    </tr>
-                                @endforeach
+                            @foreach ($anggota as $row)
+                                <tr>
+                                    <td><img src="{{ Storage::url($row->mhs->foto) }}" class="rounded" width="35"
+                                             height="35" alt=".."></td>
+                                    <td>{{ $row->mhs->username }}</td>
+                                    <td>{{ strtoupper($row->mhs->nama) }}</td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     @else

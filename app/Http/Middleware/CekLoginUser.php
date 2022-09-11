@@ -3,13 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\{
-    AkunMhs, 
-    Setting,
-};
+use App\Models\{AkunMhs, Setting, User};
 use Illuminate\Http\Request;
 
-class CekLoginMhs
+class CekLoginUser
 {
     /**
      * Handle an incoming request.
@@ -20,13 +17,14 @@ class CekLoginMhs
      */
     public function handle(Request $request, Closure $next)
     {
-        if (session()->get('id') !== NULL && session()->get('role') == 'MHS') {
-            if (AkunMhs::find(session()->get('id'))->status == 'non-aktif') {
+
+        if (auth()->user() !== NULL && in_array(auth()->user()->role, ['mahasiswa', 'dosen', 'umum'])) {
+            if (User::find(auth()->user()->id_user)->status == 'non-aktif') {
                 return redirect()->route('mhs.profile');
             }
             $request->currentPeriode = Setting::find(1)->periode_aktif;
             return $next($request);
         }
-        abort(404);
+        abort(403);
     }
 }

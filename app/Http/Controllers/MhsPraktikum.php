@@ -23,25 +23,25 @@ class MhsPraktikum extends Controller
     }
 
     public function addMatkulPraktikum(Request $request)
-    {  
-        $mhs_id = $request->session()->get('id');
-        $id_periode = $request->currentPeriode; 
-        
+    {
+        $mhs_id = auth()->user()->id_user;
+        $id_periode = $request->currentPeriode;
+
         if (Setting::find(1)->praktikum == 'off' ) return redirect()
         ->back()->with('error', 'Pendaftaran praktikum sudah ditutup!');
-        
+
         $cek_daftar = DaftarPraktikum::where([
-            'id_mhs' => $mhs_id,
+            'id_user' => $mhs_id,
             'id_periode' => $id_periode
         ])->first();
-        
+
         if ($cek_daftar == null) {
             $daftar_id = DaftarPraktikum::create([
-                'id_mhs' => $mhs_id,
+                'id_user' => $mhs_id,
                 'id_periode' => $id_periode,
                 'status_bayar' => 'belum',
                 'status_acc_fix' => 'belum',
-                ])->id_daftarmp;   
+                ])->id_daftarmp;
 
         } else {
 
@@ -50,7 +50,7 @@ class MhsPraktikum extends Controller
 
             if ($cek_daftar->status_acc_fix == 'terima') return redirect()
             ->back()->with('error', 'Tidak dapat menambah praktikum. Pendaftaran sudah divalidasi!');
-            
+
             $daftar_id = $cek_daftar->id_daftarmp;
         }
 
@@ -58,12 +58,12 @@ class MhsPraktikum extends Controller
             'id_daftarmp' => $daftar_id,
             'id_mp' => $request->id_matkum,
         ])->first();
-        
+
         if ($cek_matkum == null) {
             DaftarPraktikumd::create([
             'id_daftarmp' => $daftar_id,
             'id_mp' => $request->id_matkum,
-            ]);  
+            ]);
         } else {
             return redirect()->back()->with('error', 'Anda sudah mendaftar pratikum tersebut!');
         }
@@ -73,11 +73,11 @@ class MhsPraktikum extends Controller
 
     public function listPendingDaftar(Request $request)
     {
-        $mhs_id = $request->session()->get('id');
+        $mhs_id = auth()->user()->id_user;
         $id_periode = $request->currentPeriode;
-        
+
         $pendaftar = DaftarPraktikum::where([
-            'id_mhs' => $mhs_id,
+            'id_user' => $mhs_id,
             'id_periode' => $id_periode
         ])->with('periode')
         ->with('mhs')->first();
@@ -86,7 +86,7 @@ class MhsPraktikum extends Controller
             $matkum_pilih = DaftarPraktikumd::where([
                 'id_daftarmp' => $pendaftar->id_daftarmp,
             ])->with('matkum')->get();
-           
+
             return view('praktikum.pilihMatkum', compact('pendaftar', 'matkum_pilih'));
         }
         return view('praktikum.pilihMatkum');
@@ -105,19 +105,19 @@ class MhsPraktikum extends Controller
     public function listAnggotaPraktikum(Request $request, $id=1)
     {
         $periode_id = $request->currentPeriode;
-        $mhs_id = $request->session()->get('id');
+        $mhs_id = auth()->user()->id_user;
 
         $matkum = PendaftarAcc::where([
             'id_periode' => $periode_id,
         ])->whereRelation("detail", [
-            'id_mhs' => $mhs_id,
+            'id_user' => $mhs_id,
         ])->with('matkum')->get();
 
         $kelompok = DaftarKelompok::where([
             'id_periode' => $periode_id,
             'id_mp' => $id,
         ])->whereRelation("detail", [
-            'id_mhs' => $mhs_id,
+            'id_user' => $mhs_id,
         ])->with('pbb')->with('pgj')->first();
 
         if ($kelompok != null) {
@@ -125,7 +125,7 @@ class MhsPraktikum extends Controller
             $anggota = DaftarAnggotaKelompok::where([
                 'id_kel' => $kelompok->id_kel,
             ])->with('mhs')->get();
-    
+
             return view('praktikum.anggotaPraktikum', compact('matkum', 'kelompok', 'anggota'));
         }
         return view('praktikum.anggotaPraktikum');
@@ -135,26 +135,26 @@ class MhsPraktikum extends Controller
     public function listJadwalPraktikum(Request $request, $id=1)
     {
         $periode_id = $request->currentPeriode;
-        $mhs_id = $request->session()->get('id');
+        $mhs_id = auth()->user()->id_user;
 
         $matkum = PendaftarAcc::where([
             'id_periode' => $periode_id,
         ])->whereRelation("detail", [
-            'id_mhs' => $mhs_id,
+            'id_user' => $mhs_id,
         ])->with('matkum')->get();
 
         $kelompok = DaftarKelompok::where([
             'id_periode' => $periode_id,
             'id_mp' => $id,
         ])->whereRelation("detail", [
-            'id_mhs' => $mhs_id,
+            'id_user' => $mhs_id,
         ])->first();
 
         if ($kelompok != null) {
             $jadwal = JadwalPraktikum::where([
                 'id_kel' => $kelompok->id_kel,
             ])->get();
-    
+
             return view('praktikum.jadwalPraktikum', compact('matkum', 'kelompok', 'jadwal'));
         }
         return view('praktikum.jadwalPraktikum');
@@ -163,13 +163,13 @@ class MhsPraktikum extends Controller
     public function nilaiPraktikum(Request $request)
     {
         $periode_id = $request->currentPeriode;
-        $mhs_id = $request->session()->get('id');
+        $mhs_id = auth()->user()->id_user;
         $matkum = DaftarKelompok::where([
             'id_periode' => $periode_id,
         ])->whereRelation("detail", [
-            'id_mhs' => $mhs_id,
+            'id_user' => $mhs_id,
         ])->with('periode')->with('detail')->with('matkum')->get();
 
         return view('praktikum.nilaiPraktikum', compact('matkum'));
-    }   
+    }
 }

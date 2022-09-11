@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-striped">
+                        <table class="table table-striped mb-1">
                             <tr>
                                 <td class="px-0">
                                     @foreach ($matkum_periode as $row)
@@ -26,15 +26,15 @@
                             </tr>
                         </table>
 
-                        <table class="table table-striped">
+                        <table class="table table-striped table-bordered">
                             <tr class="table-primary">
-                                <td>Nama Kelompok</td>
-                                <td>Asprak</td>
-                                <td>Pembimbing</td>
-                                <td>Tanggal Ujian</td>
-                                <td>Penguji 1</td>
-                                <td>Penguji 2</td>
-                                <td>Aksi</td>
+                                <th>Nama Kelompok</th>
+                                <th>Asprak</th>
+                                <th>Pembimbing</th>
+                                <th>Tanggal Ujian</th>
+                                <th>Penguji 1</th>
+                                <th>Penguji 2</th>
+                                <th>Aksi</th>
                             </tr>
                             @foreach ($list_kelompok as $row)
                                 <tr>
@@ -56,12 +56,12 @@
                                             data-bs="{{ $row->id_kel }}:{{ $row->nm_kel }}:{{ $row->tgl_ujian }}:{{ $row->asprak }}:{{ $row->pembimbing }}:{{ $row->penguji }}:{{ $row->penguji2 }}">
                                             <i class='bx bx-edit-alt'></i>
                                         </button>
-                                        <a href="{{ route('adm.prak.anggota', $row->id_kel) }}"
-                                            class="btn btn-sm btn-warning mt-1">
-                                            <i class='bx bx-group'></i></a>
-                                        <a href="{{ route('adm.prak.jadwal', $row->id_kel) }}"
-                                            class="btn btn-sm btn-success mt-1">
-                                            <i class='bx bx-calendar'></i></a>
+                                        <a href="{{ route('adm.prak.anggota', $row->id_kel) }}">
+                                            <button class="btn btn-sm btn-warning mt-1"><i class='bx bx-group'></i></button>
+                                            </a>
+                                        <a href="{{ route('adm.prak.jadwal', $row->id_kel) }}">
+                                            <button class="btn btn-sm btn-success mt-1"><i class='bx bx-calendar'></i></button>
+                                            </a>
                                     </td>
                                 </tr>
                             @endforeach
