@@ -9,10 +9,10 @@
 
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Form Penyewaan</h5>
+                    <h5 class="mb-0">Form Permohonan</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('usr.sewa')}}" method="POST">
+                    <form action="{{route('usr.permohonan.s')}}" class="px-sm-4" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col">
@@ -52,38 +52,19 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-12 col-sm-4">
-                                <div class="mb-3">
-                                    <label for="alat" class="form-label">Nama Alat</label>
-                                    <select class="form-select" id="alat" name="alat">
-                                        @foreach ($alat as $row)
-                                            <option value="{{ $row->id_alat }}">
-                                                {{$row->nm_alat}}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <div class="col">
+                                <label for="proposal" class="form-label">Upload Proposal Penelitian</label>
+                                <input class="form-control" name="proposal" type="file" id="proposal" accept="application/pdf">
                             </div>
-                            <div class="col-12 col-sm-4">
-                                <div class="mb-3">
-                                    <label for="jumlah" class="form-label">Jumlah Sewa</label>
-                                    <input type="number" class="form-control" id="jumlah"
-                                           placeholder="Jumlah Sewa" name="jumlah"/>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-4">
-                                <label for="keperluan" class="form-label">Keperluan</label>
-                                <select class="form-select" id="keperluan" name="keperluan">
-                                    <option value="praktikum">Praktikum</option>
-                                    <option value="pengujian">Pengujian</option>
-                                    <option value="peminjaman">Peminjaman</option>
-                                </select>
+                            <div class="col">
+                                <label for="surat" class="form-label">Upload Surat Permohonan</label>
+                                <input class="form-control" name="surat" type="file" id="surat" accept="application/pdf">
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-sm-10">
-                                <button type="submit" class="btn btn-sm btn-primary">Sewa Sekarang</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Kirim</button>
                             </div>
                         </div>
                     </form>

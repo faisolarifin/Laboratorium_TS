@@ -21,6 +21,7 @@ class CekLoginAdmin
             $request->currentPeriode = Setting::first()->periode_aktif;
             return $next($request);
         }
-        abort(403);
+//        abort(403);
+        return redirect('/');
     }
 }

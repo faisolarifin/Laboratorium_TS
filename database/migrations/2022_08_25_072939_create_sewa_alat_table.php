@@ -32,6 +32,7 @@ return new class extends Migration
             $table->date('tgl_sewa')->nullable();
             $table->date('tgl_kembali')->nullable();
             $table->integer('jumlah')->nullable();
+            $table->enum('keperluan', ['praktikum', 'pengujian', 'peminjaman']);
             $table->enum('status', ['permohonan', 'sewa', 'selesai']);
             $table->decimal('total_biaya')->nullable();
             $table->timestamps();

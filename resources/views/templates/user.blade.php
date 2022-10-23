@@ -117,9 +117,6 @@
                     <li><a class="dropdown-item" href="{{route('usr.alat')}}">Daftar Alat</a></li>
                     <li><a class="dropdown-item" href="{{route('usr.sewa.f')}}">Form Penyewaan</a></li>
                     <li><a class="dropdown-item" href="{{route('usr.sewa.r')}}">Penyewaan</a></li>
-                    <li>
-                      <hr class="dropdown-divider" />
-                    </li>
                     <li><a class="dropdown-item" href="{{route('usr.sewa.h')}}">History Penyewaan</a></li>
                   </ul>
                 </li>
@@ -136,12 +133,9 @@
                     Penelitian
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="javascript:void(0)">Action</a></li>
-                    <li><a class="dropdown-item" href="javascript:void(0)">Another action</a></li>
-                    <li>
-                      <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="javascript:void(0)">Something else here</a></li>
+                    <li><a class="dropdown-item" href="{{route('usr.permohonan')}}">Form Permohonan</a></li>
+                    <li><a class="dropdown-item" href="{{route('usr.listpermohonan')}}">Permohonan</a></li>
+                    <li><a class="dropdown-item" href="{{route('usr.penelitian.kegiatan')}}">Kegiatan Penelitian</a></li>
                   </ul>
                 </li>
 

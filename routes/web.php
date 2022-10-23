@@ -8,7 +8,8 @@ use App\Http\Controllers\{AdminInventaris,
     Auth,
     MhsPraktikum,
     Penyewaan,
-    UserPenyewaan,};
+    UserPenyewaan,
+    PenelitianController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,14 @@ Route::middleware(['cekuser'])->group(function() {
     Route::delete('/cancelsewa', [UserPenyewaan::class, 'cancelSewa'])->name('usr.sewa.c');
     Route::get('/formsewa', [UserPenyewaan::class, 'formPenyewaan'])->name('usr.sewa.f');
     Route::post('/sewa', [UserPenyewaan::class, 'permohonanSewa'])->name('usr.sewa');
+
+    Route::get('/penelitian', [PenelitianController::class, 'permohonan'])->name('usr.permohonan');
+    Route::post('/penelitian', [PenelitianController::class, 'savePermohonan'])->name('usr.permohonan.s');
+    Route::get('/penelitian/permohonan', [PenelitianController::class, 'listPermohonan'])->name('usr.listpermohonan');
+    Route::get('/penelitian/daftar/{link?}', [PenelitianController::class, 'formDaftarPenelitian'])->name('usr.penelitian.form');
+    Route::post('/penelitian/daftar', [PenelitianController::class, 'daftarPenelitian'])->name('usr.penelitian.daftar');
+    Route::get('/penelitian/kegiatan', [PenelitianController::class, 'kegiatanPenelitian'])->name('usr.penelitian.kegiatan');
+    Route::get('/penelitian/kegiatan/{plt?}', [PenelitianController::class, 'detailKegiatanPenelitian'])->name('usr.penelitian.detail');
 
 
 
@@ -97,6 +106,18 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::post('/bap', [Penyewaan::class, 'exportBAP'])->name('adm.sewa.export.bap');
         Route::post('/bp', [Penyewaan::class, 'exportBP'])->name('adm.sewa.export.bp');
         Route::post('/sbt', [Penyewaan::class, 'exportSBT'])->name('adm.sewa.export.sbt');
+
+    });
+
+    Route::prefix('plt')->group(function () {
+        Route::get('/permohonan', [PenelitianController::class, 'daftarPermohonan'])->name('adm.plt.permohonan');
+        Route::get('/permohonan/acc/{pmh?}', [PenelitianController::class, 'accPermohonan'])->name('adm.permohonan.acc');
+        Route::get('/permohonan/reject/{pmh?}', [PenelitianController::class, 'rejectPermohonan'])->name('adm.permohonan.reject');
+
+        Route::get('/penelitian', [PenelitianController::class, 'listPenelitian'])->name('adm.plt.penelitian');
+        Route::get('/penelitian/{plt?}', [PenelitianController::class, 'detailPenelitian'])->name('adm.plt.detail');
+
+        Route::put('/penelitian/percobaan', [PenelitianController::class,'updatePercobaanPenelitian'])->name('adm.plt.percobaan');
 
     });
 
