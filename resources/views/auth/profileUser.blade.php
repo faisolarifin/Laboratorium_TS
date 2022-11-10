@@ -21,6 +21,8 @@
                             </div>
                         @endif
 
+                        @include('templates.alert')
+
                         <form id="formAuthentication" class="mb-3" action="{{route('mhs.profile')}}" method="POST"
                               enctype="multipart/form-data">
                             @csrf

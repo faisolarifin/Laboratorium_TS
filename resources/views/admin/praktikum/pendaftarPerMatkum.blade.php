@@ -15,7 +15,7 @@
                         <h5 class="mb-0">Peserta Praktikum</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table table-striped mb-1">
+                        <table class="table table-striped mb-1 tab-table">
                             <tr>
                                 <td class="px-0">
                                     @foreach ($matkum_periode as $row)

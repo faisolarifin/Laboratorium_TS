@@ -11,8 +11,8 @@
             <div class="col-xxl">
                 <div class="card mb-4">
                     <div class="card-body text-center pb-5">
-                        <h2 class="mb-2 mt-3">Selamat Datang di Aplikasi Laboratorium</h2>
-                        <h2> Teknik Sipil Universitas Wiraraja</h2>
+                        <h2 class="mb-2 mt-3">Aplikasi Laboratorium</h2>
+                        <h3> Teknik Sipil Universitas Wiraraja</h3>
 
                         <div class="mt-5 d-flex justify-content-center mb-5">
                             <a href="{{ route('adm.master.user') }}">
@@ -33,6 +33,14 @@
                             <a href="{{route('adm.sewa.i')}}">
                                 <button class="btn btn-outline-primary mx-3 py-3">
                                     <i class="bx bx-paint fs-3"></i> <br> PENYEWAAN
+                                </button>
+                            </a>
+
+                        </div>
+                        <div class="mt-5 d-flex justify-content-center mb-5">
+                            <a href="{{route('adm.plt.permohonan')}}">
+                                <button class="btn btn-outline-primary mx-3 py-3">
+                                    <i class="bx bx-adjust fs-3"></i> <br> PENELITIAN
                                 </button>
                             </a>
                             <a href="{{route('adm.inv.bahan')}}">

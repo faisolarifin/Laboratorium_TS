@@ -14,4 +14,8 @@ class Percobaan extends Model
         'id_pgj',
         'nm_percobaan',
     ];
+
+    public function pgj() {
+        return $this->belongsTo(Pengujian::class, 'id_pgj', 'id_pgj');
+    }
 }

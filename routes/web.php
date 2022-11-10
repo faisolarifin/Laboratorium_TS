@@ -50,8 +50,6 @@ Route::middleware(['cekuser'])->group(function() {
     Route::get('/penelitian/kegiatan', [PenelitianController::class, 'kegiatanPenelitian'])->name('usr.penelitian.kegiatan');
     Route::get('/penelitian/kegiatan/{plt?}', [PenelitianController::class, 'detailKegiatanPenelitian'])->name('usr.penelitian.detail');
 
-
-
 });
 
 Route::middleware(['cekadmin'])->group(function() {
@@ -118,6 +116,16 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::get('/penelitian/{plt?}', [PenelitianController::class, 'detailPenelitian'])->name('adm.plt.detail');
 
         Route::put('/penelitian/percobaan', [PenelitianController::class,'updatePercobaanPenelitian'])->name('adm.plt.percobaan');
+
+        Route::get('/master/pengujian', [PenelitianController::class, 'indexPengujian'])->name('adm.plt.pengujian.index');
+        Route::post('/master/pengujian', [PenelitianController::class, 'savePengujian'])->name('adm.plt.pengujian.save');
+        Route::put('/master/pengujian', [PenelitianController::class, 'updatePengujian'])->name('adm.plt.pengujian.update');
+        Route::delete('/master/pengujian/{pgj}', [PenelitianController::class, 'deletePengujian'])->name('adm.plt.pengujian.delete');
+
+        Route::get('/master/percobaan', [PenelitianController::class, 'indexPercobaan'])->name('adm.plt.percobaan.index');
+        Route::post('/master/percobaan', [PenelitianController::class, 'savePercobaan'])->name('adm.plt.percobaan.save');
+        Route::put('/master/percobaan', [PenelitianController::class, 'updatePercobaan'])->name('adm.plt.percobaan.update');
+        Route::delete('/master/percobaan/{pcb}', [PenelitianController::class, 'deletePercobaan'])->name('adm.plt.percobaan.delete');
 
     });
 
@@ -195,6 +203,9 @@ Route::middleware(['cekadmin'])->group(function() {
     Route::prefix('setting')->group(function() {
         Route::get('/', [AdminSetting::class, 'index'])->name('adm.setting');
         Route::put('/', [AdminSetting::class, 'updateSetting'])->name('adm.setting');
+
+        Route::get('/password', [AdminSetting::class, 'updatePasswordView'])->name('adm.setting.pwd.index');
+        Route::put('/password', [AdminSetting::class, 'saveUpdatePassword'])->name('adm.setting.pwd.save');
     });
 
 });
@@ -205,6 +216,8 @@ Route::get('/register', [Auth::class, 'registerFormUser'])->name('auth.regmhs');
 Route::post('/register', [Auth::class, 'registerAkunUser'])->name('auth.regmhs');
 Route::get('/profile', [Auth::class, 'profileFormUser'])->name('mhs.profile');
 Route::post('/profile', [Auth::class, 'saveProfileUser'])->name('mhs.profile');
+Route::get('/password', [Auth::class, 'updatePasswordView'])->name('mhs.password');
+Route::post('/password', [Auth::class, 'updatePassword'])->name('mhs.password');
 Route::get('/auth', [Auth::class, 'loginFormAdmin'])->name('auth.loginadmin');
 Route::post('/auth', [Auth::class, 'loginAkunAdmin'])->name('auth.loginadmin');
 Route::get('/logout', [Auth::class, 'logout'])->name('auth.logout');

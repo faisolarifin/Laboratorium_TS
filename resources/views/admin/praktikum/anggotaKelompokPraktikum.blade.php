@@ -99,9 +99,9 @@
             </div>
         </div>
     </div>
+@endsection
 
-
-
+@section('modal')
     <!-- Small Modal -->
     <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
@@ -140,7 +140,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('script')
     <script>
         var nilaiModal = document.getElementById('smallModal')
         nilaiModal.addEventListener('show.bs.modal', function(event) {

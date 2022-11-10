@@ -126,7 +126,24 @@ class Auth extends Controller
         return redirect()->route('mhs.dashboard');
 
     }
-
+    public function updatePasswordView()
+    {
+        return view('auth.updatePassword');
+    }
+    public function updatePassword(Request $request)
+    {
+        if (Auntentikasi::attempt([
+            'username' => auth()->user()->username,
+            'password' => $request->last_pwd
+        ])) {
+            if ($request->new_pwd <> $request->confirm_pwd) return redirect()->back()->with('error', 'password konfirmasi tidak sama!');
+            User::find(auth()->user()->id_user)->update([
+                'password' => Hash::make($request->new_pwd)
+            ]);
+            return redirect()->back()->with('success', 'Berhasil update password!');
+        }
+        return redirect()->back()->with('error', 'Password lama tidak benar!');
+    }
     public function logout()
     {
         Session::flush();

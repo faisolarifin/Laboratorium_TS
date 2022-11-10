@@ -22,7 +22,7 @@
                         <form action="{{ route('adm.setting') }}" method="post">
                             @csrf
                             @method('PUT')
-                            <table class="table">
+                            <table class="table tab-table">
                                 <tr>
                                     <th width="150">Dekan</th>
                                     <td width="10">:</td>

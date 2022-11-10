@@ -11,7 +11,7 @@
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="mb-0">Pilihan Praktikum</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body table-responsive">
                     <table class="table table-striped" id="mytable">
                         <thead>
                             <tr class="table-primary">

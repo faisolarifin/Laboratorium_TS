@@ -6,6 +6,7 @@ use App\Models\Penelitian\DaftarPercobaan;
 use App\Models\Penelitian\Penelitian;
 use App\Models\Penelitian\Permohonan;
 use App\Models\Pengujian\Pengujian;
+use App\Models\Pengujian\Percobaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -144,5 +145,60 @@ class PenelitianController extends Controller
         return redirect()->back();
     }
 
+
+    public function indexPengujian()
+    {
+        $pengujian = Pengujian::all();
+        return view('admin.penelitian.masterdata.indexPengujian', compact('pengujian'));
+    }
+    public function savePengujian(Request $request)
+    {
+        Pengujian::create([
+            'nm_kategori' => $request->kategori,
+            'nm_pengujian' => $request->pgj,
+        ]);
+        return redirect()->back();
+    }
+    public function updatePengujian(Request $request)
+    {
+        Pengujian::find($request->kode_pgj)->update([
+            'nm_kategori' => $request->kategori,
+            'nm_pengujian' => $request->pgj,
+        ]);
+        return redirect()->back();
+    }
+    public function deletePengujian(Pengujian $pgj)
+    {
+        $pgj->delete();
+        return redirect()->back();
+    }
+    public function indexPercobaan()
+    {
+        $pengujian = Pengujian::get();
+        $percobaan = Percobaan::with("pgj")->get();
+        return view('admin.penelitian.masterdata.indexPercobaan',
+            compact('percobaan', 'pengujian'));
+    }
+    public function savePercobaan(Request $request)
+    {
+        Percobaan::create([
+            'id_pgj' => $request->pgj,
+            'nm_percobaan' => $request->pcb
+        ]);
+        return redirect()->back();
+    }
+    public function updatePercobaan(Request $request)
+    {
+        Percobaan::find($request->kode_pcb)->update([
+            'id_pgj' => $request->pgj,
+            'nm_percobaan' => $request->pcb
+        ]);
+        return redirect()->back();
+    }
+    public function deletePercobaan(Percobaan $pcb)
+    {
+        $pcb->delete();
+        return redirect()->back();
+    }
 
 }
