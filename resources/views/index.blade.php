@@ -18,12 +18,12 @@
                                 <i class="bx bxs-user-check fs-3"></i> <br> PRAKTIKUM
                             </button>
                         </a>
-                        <a href="{{route('usr.alat')}}">
+                        <a href="{{route('usr.sewa.f')}}">
                             <button class="btn btn-outline-primary m-3 py-4">
                                 <i class="bx bx-paint fs-3"></i> <br> SEWA ALAT
                             </button>
                         </a>
-                        <a href="{{route('usr.alat')}}">
+                        <a href="{{route('usr.permohonan')}}">
                             <button class="btn btn-outline-primary m-3 py-4">
                                 <i class="bx bxs-microchip fs-3"></i> <br> PENELITIAN
                             </button>

@@ -95,6 +95,17 @@ class PenelitianController extends Controller
         return view('penelitian.detailKegiatan', compact('plt'));
     }
 
+    public function downloadLaporanHasil(Penelitian $laporan)
+    {
+        if ($laporan->laporan != null) {
+            $file = storage_path("app/". $laporan->laporan);
+            if (file_exists($file)) {
+                return response()->download($file);
+            }
+        }
+        return redirect()->back();
+    }
+
     //admin
     public function daftarPermohonan()
     {
@@ -142,6 +153,24 @@ class PenelitianController extends Controller
         Penelitian::find($request->kode_plt)->update([
             'total_bayar' => $total
         ]);
+        return redirect()->back();
+    }
+    public function uploadLaporanHasil(Penelitian $laporan, Request $request)
+    {
+        $this->validate($request, [
+            'laporan' => 'required'
+        ]);
+        if ($laporan->laporan != null) {
+
+        }
+        $path = 'public/files/laporan';
+        $laporanFile = $request->file('laporan');
+        $laporanName = $laporanFile->getClientOriginalName();
+        $laporanFile->storeAs($path, $laporanName);
+        $laporan->update([
+           'laporan' => "{$path}/{$laporanName}"
+        ]);
+
         return redirect()->back();
     }
 

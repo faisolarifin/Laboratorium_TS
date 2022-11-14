@@ -15,6 +15,7 @@ class Penelitian extends Model
         'id_user',
         'tgl_daftar',
         'total_bayar',
+        'laporan',
         'dikirim_oleh',
         'diterima_oleh',
     ];

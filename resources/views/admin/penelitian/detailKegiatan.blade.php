@@ -15,14 +15,14 @@
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-striped">
+                        <table class="table table-striped tab-table">
                             <tr>
                                 <td width="140">Nama</td>
                                 <td width="10">:</td>
                                 <td>{{ strtoupper($detail->user->nama) }}</td>
                             </tr>
                             <tr>
-                                <td>NIM</td>
+                                <td>NPM</td>
                                 <td>:</td>
                                 <td>{{ $detail->user->username }}</td>
                             </tr>
@@ -30,6 +30,25 @@
                                 <td>Tanggal Daftar</td>
                                 <td>:</td>
                                 <td>{{ Date::tglIndo($detail->tgl_daftar) }}</td>
+                            </tr>
+                            <tr>
+                                <td>Laporan Hasil Pengujian</td>
+                                <td>:</td>
+                                <td>
+                                    @if($detail->laporan != null)
+                                        <a href="{{ Storage::url($detail->laporan) }}">{{ basename(Storage::url($detail->laporan)) }}</a>
+                                    @else
+                                        null
+                                    @endif
+                                    <form action="{{ route('adm.plt.laporan', $detail->id_plt) }}" id="form_upload" method="post" enctype=multipart/form-data class="d-inline">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="file" name="laporan" id="laporan" class="d-none" accept="application/pdf">
+                                        <button class="btn btn-sm btn-primary p-1 ms-3" id="upload_btn">
+                                            <i class='bx bx-upload'></i>
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         </table>
 
@@ -113,21 +132,33 @@
     </div>
 
     <script>
-        var nilaiModal = document.getElementById('smallModal')
+        let nilaiModal = document.getElementById('smallModal')
         nilaiModal.addEventListener('show.bs.modal', function(event) {
             // Button that triggered the modal
-            var button = event.relatedTarget
-            // Extract info from data-bs-* attributes
-            var data = button.getAttribute('data-bs').split(':')
-            var kodePlt = nilaiModal.querySelector('.modal-body #kode_plt')
-            var kodePcb = nilaiModal.querySelector('.modal-body #kode_pcb')
-            var jumlah = nilaiModal.querySelector('.modal-body #jumlah')
-            var biaya = nilaiModal.querySelector('.modal-body #biaya')
-
+            let button = event.relatedTarget
+            let data = button.getAttribute('data-bs').split(':')
+            let kodePlt = nilaiModal.querySelector('.modal-body #kode_plt')
+            let kodePcb = nilaiModal.querySelector('.modal-body #kode_pcb')
+            let jumlah = nilaiModal.querySelector('.modal-body #jumlah')
+            let biaya = nilaiModal.querySelector('.modal-body #biaya')
             kodePlt.value = data[0]
             kodePcb.value = data[1]
             jumlah.value = data[2]
             biaya.value = data[3]
-        })
+        });
+
+        let fieldLaporan = document.querySelector('#laporan');
+        let uploadBtn = document.querySelector('#upload_btn');
+        let formUpload = document.querySelector('#form_upload');
+        uploadBtn.onclick = function(e) {
+            e.preventDefault();
+            fieldLaporan.click();
+        }
+        fieldLaporan.onchange = function (event) {
+            let target = event.target || event.srcElement;
+            if (target.value.length > 0) {
+                formUpload.submit();
+            }
+        }
     </script>
 @endsection

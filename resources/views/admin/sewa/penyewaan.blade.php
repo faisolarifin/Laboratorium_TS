@@ -42,8 +42,8 @@
                                         <td>{{ Date::tglReverse($row->tgl_sewa) }}</td>
                                         <td>{{ Date::tglReverse($row->tgl_kembali) }}</td>
                                         <td>{{ $row->jumlah }}</td>
-                                        <td>Rp. {{ number_format($row->total_biaya, 2) }}</td>
-                                        <td>{{ $row->status }}</td>
+                                        <td><strong>Rp.{{ number_format($row->total_biaya, 2) }}</strong></td>
+                                        <td><span class="badge {{ ($row->status == 'selesai') ? 'bg-success' : (($row->status == 'sewa') ? 'bg-info' : 'bg-warning') }}">{{ $row->status }}</td>
                                         <td>
                                             @if($row->status == 'permohonan')
                                             <form class="d-inline" action="{{route('adm.sewa.st')}}" method="post" title="setujui penyewaan">
@@ -70,7 +70,7 @@
                                     </tr>
                                     @if($row->status != 'permohonan')
                                     <tr>
-                                        <td colspan="9" class="text-end">
+                                        <td colspan="10" class="text-center">
                                             @if($row->status == 'sewa')
                                             <form class="d-inline" action="{{route('adm.sewa.export.bap')}}" method="post" title="Download BA Peminjaman">
                                                 @csrf

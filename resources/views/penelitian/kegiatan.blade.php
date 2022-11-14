@@ -19,6 +19,7 @@
                                 <th>Tanggal Daftar</th>
                                 <th>Dikirim Oleh</th>
                                 <th>Diterima Oleh</th>
+                                <th>Laporan Hasil</th>
                                 <th>Total Biaya</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -31,7 +32,17 @@
                                     <td>{{ Date::tglIndo($row->tgl_daftar) }}</td>
                                     <td>{{ $row->dikirim_oleh }}</td>
                                     <td>{{ $row->diterima_oleh }}</td>
-                                    <td>Rp. {{ number_format($row->total_bayar) }}</td>
+                                    <td>
+                                        @if($row->laporan != null)
+                                            <a href="{{ Storage::url($row->laporan) }}">{{ basename(Storage::url($row->laporan)) }}</a>
+                                            <a href="{{ route('usr.laporan.download', $row->id_plt) }}" class="btn btn-sm btn-primary p-0 ms-2">
+                                                <i class='bx bx-download'></i>
+                                            </a>
+                                        @else
+                                            null
+                                        @endif
+                                    </td>
+                                    <td><strong>Rp.{{ number_format($row->total_bayar) }}</strong></td>
                                     <td class="text-center">
                                         <a href="{{route('usr.penelitian.detail', $row->id_plt)}}" class="btn p-1 btn-sm btn-primary">
                                             <span class="tf-icons bx bx-show"></span>

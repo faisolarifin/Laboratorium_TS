@@ -49,6 +49,7 @@ Route::middleware(['cekuser'])->group(function() {
     Route::post('/penelitian/daftar', [PenelitianController::class, 'daftarPenelitian'])->name('usr.penelitian.daftar');
     Route::get('/penelitian/kegiatan', [PenelitianController::class, 'kegiatanPenelitian'])->name('usr.penelitian.kegiatan');
     Route::get('/penelitian/kegiatan/{plt?}', [PenelitianController::class, 'detailKegiatanPenelitian'])->name('usr.penelitian.detail');
+    Route::get('/penelitian/laporan/{laporan?}', [PenelitianController::class, 'downloadLaporanHasil'])->name('usr.laporan.download');
 
 });
 
@@ -116,6 +117,7 @@ Route::middleware(['cekadmin'])->group(function() {
         Route::get('/penelitian/{plt?}', [PenelitianController::class, 'detailPenelitian'])->name('adm.plt.detail');
 
         Route::put('/penelitian/percobaan', [PenelitianController::class,'updatePercobaanPenelitian'])->name('adm.plt.percobaan');
+        Route::put('/penelitian/laporan/{laporan}', [PenelitianController::class,'uploadLaporanHasil'])->name('adm.plt.laporan');
 
         Route::get('/master/pengujian', [PenelitianController::class, 'indexPengujian'])->name('adm.plt.pengujian.index');
         Route::post('/master/pengujian', [PenelitianController::class, 'savePengujian'])->name('adm.plt.pengujian.save');

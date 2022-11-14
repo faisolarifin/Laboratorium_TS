@@ -29,15 +29,18 @@
                         @if (count($list_pendaftar) > 0)
                             <table class="table table-striped table-bordered">
                                 <tr class="table-primary">
-                                    <th>Foto</th>
+                                    <th>#</th>
+                                    <th class="text-center">Foto</th>
                                     <th>Nama</th>
                                     <th>N P M</th>
                                     <th>No. Hp</th>
                                     <th>Aksi</th>
                                 </tr>
+                                @php($no=0)
                                 @foreach ($list_pendaftar as $row)
                                     <tr>
-                                        <td><img src="{{ Storage::url($row->mhs->foto) }}" class="rounded" width="35"
+                                        <td>{{ ++$no }}</td>
+                                        <td class="text-center"><img src="{{ Storage::url($row->mhs->foto) }}" class="rounded" width="35"
                                                 height="35" alt=".."></td>
                                         <td>{{ strtoupper($row->mhs->nama) }}</td>
                                         <td>{{ $row->mhs->username }}</td>

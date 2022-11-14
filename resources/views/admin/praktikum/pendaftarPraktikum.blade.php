@@ -19,6 +19,7 @@
   <table class="table table-striped table-bordered" id="mytable">
       <thead>
         <tr class="table-primary">
+            <th>#</th>
             <th>Nama</th>
             <th>N P M</th>
             <th>No. Hp</th>
@@ -28,8 +29,10 @@
         </tr>
       </thead>
       <tbody>
+        @php($no=0)
         @foreach ($pendaftar as $row)
             <tr>
+                <td>{{ ++$no }}</td>
                 <td>{{strtoupper($row->mhs->nama)}}</td>
                 <td>{{$row->mhs->username}}</td>
                 <td>{{$row->mhs->no_hp}}</td>

@@ -17,8 +17,8 @@ class SewaExport
 
         $template_document->setValue('nama', strtoupper($row->user->nama));
         $template_document->setValue('alamat', $row->user->alamat);
-        $template_document->setValue('hari', Date::hariIni($row->tgl_kembali));
-        $template_document->setValue('tanggal', Date::tglIndo($row->tgl_kembali));
+        $template_document->setValue('hari', Date::hariIni($row->tgl_sewa));
+        $template_document->setValue('tanggal', Date::tglIndo($row->tgl_sewa));
         $template_document->setValue('jumlah', $row->jumlah);
         $template_document->setValue('alat', $row->alat->nm_alat);
         $template_document->setValue('tglbawah', Date::tglIndo(Carbon::now()->format('Y-m-d')));

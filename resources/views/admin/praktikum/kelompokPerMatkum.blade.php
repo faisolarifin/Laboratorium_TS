@@ -19,8 +19,8 @@
                             <tr>
                                 <td class="px-0">
                                     @foreach ($matkum_periode as $row)
-                                        <a href="{{ route('adm.prak.kelompok', $row->id_mp) }}"
-                                            class="btn btn-sm {{ (Request::segment(3) ?? 1) == $row->id_mp ? 'btn-primary' : 'btn-outline-primary' }}">{{ $row->nama_mp }}</a>
+                                        <a href="{{ route('adm.prak.kelompok', $row->id_daftar) }}"
+                                           class="btn btn-sm {{ (Request::segment(3) ?? 1) == $row->id_daftar ? 'btn-primary' : 'btn-outline-primary' }}">{{ $row->matkum->nama_mp }}</a>
                                     @endforeach
                                 </td>
                             </tr>

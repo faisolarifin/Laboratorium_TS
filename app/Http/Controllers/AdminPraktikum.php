@@ -165,7 +165,9 @@ class AdminPraktikum extends Controller
     public function kelompokPerdaftarPerMatkum(Request $request, $id_mp=1)
     {
         $id_periode = $request->currentPeriode;
-        $matkum_periode = MatkulPraktikum::all();
+        $matkum_periode = PendaftarAcc::where([
+            'id_periode' => $id_periode,
+        ])->with('matkum')->get();
         $dosen = Dosen::all();
 
         $list_kelompok = DaftarKelompok::where([

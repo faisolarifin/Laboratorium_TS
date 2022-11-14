@@ -116,11 +116,11 @@ class Penyewaan extends Controller
     }
     public function exportBP()
     {
-        return SewaExport::exportBuktiBebasPinjam();
+        return SewaExport::exportBuktiPeminjaman();
     }
     public function exportSBT()
     {
-        return SewaExport::exportBuktiPeminjaman();
+        return SewaExport::exportBuktiBebasPinjam();
     }
 
 }

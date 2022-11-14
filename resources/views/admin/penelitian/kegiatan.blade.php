@@ -39,7 +39,7 @@
                                         <td>{{ Date::tglReverse($row->tgl_daftar) }}</td>
                                         <td>{{ $row->dikirim_oleh }}</td>
                                         <td>{{ $row->diterima_oleh }}</td>
-                                        <td>Rp. {{ number_format($row->total_bayar,2) }}</td>
+                                        <td><strong>Rp.{{ number_format($row->total_bayar,2) }}</strong></td>
                                         <td>
                                             <a href="{{route('adm.plt.detail', $row->id_plt)}}" class="btn p-1 btn-sm btn-primary" title="Terima Permohonan">
                                                 <span class="tf-icons bx bx-show"></span>

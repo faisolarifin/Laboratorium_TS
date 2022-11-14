@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-striped">
+                        <table class="table table-striped tab-table">
                             <tr>
                                 <th>Nama Kelompok : {{ strtoupper($matkum->nm_kel) }}</th>
                             </tr>

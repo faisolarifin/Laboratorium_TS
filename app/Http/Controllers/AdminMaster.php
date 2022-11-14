@@ -104,10 +104,14 @@ class AdminMaster extends Controller
 
     public function saveDataMatkum(Request $request)
     {
-        MatkulPraktikum::create([
+        $matkum = MatkulPraktikum::create([
             'nama_mp' => $request->nm_prak,
             'harga' => $request->harga,
             'deskripsi' => $request->desk,
+        ]);
+        PendaftarAcc::create([
+            'id_periode' => $request->currentPeriode,
+            'id_mp' => $matkum->id_mp,
         ]);
 
         return redirect()

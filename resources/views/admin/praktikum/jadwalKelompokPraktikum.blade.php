@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-striped">
+                        <table class="table table-striped tab-table">
                             <tr>
                                 <th>Nama Kelompok : {{ strtoupper($matkum->nm_kel) }}</th>
                             </tr>
@@ -31,7 +31,7 @@
 
                         </table>
 
-                        <table class="table table-striped table-bordered mt-1">
+                        <table class="table table-striped table-bordered mt-1 tab-table">
                             <tr>
                                 <th colspan="5">
                                     <form class="d-inline" action="{{ route('adm.prak.tmbjadwal') }}" method="post">
@@ -48,12 +48,12 @@
                             </tr>
                             <tr class="table-primary">
                                 <th>Tanggal</th>
-                                <th>Aksi</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                             @foreach ($jadwal_prak as $row)
                                 <tr>
                                     <td>{{ Date::hariIni($row->tgl_prak) . ', ' . Date::tglIndo($row->tgl_prak) }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         <form class="d-inline" action="{{ route('adm.prak.hpsjadwal') }}" method="post">
                                             @csrf
                                             @method('DELETE')

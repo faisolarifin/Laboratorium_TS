@@ -72,12 +72,14 @@
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
-                                <label for="keperluan" class="form-label">Keperluan</label>
-                                <select class="form-select" id="keperluan" name="keperluan">
-                                    <option value="praktikum">Praktikum</option>
-                                    <option value="pengujian">Pengujian</option>
-                                    <option value="peminjaman">Peminjaman</option>
-                                </select>
+                                <div class="mb-3">
+                                    <label for="keperluan" class="form-label">Keperluan</label>
+                                    <select class="form-select" id="keperluan" name="keperluan">
+                                        <option value="praktikum">Praktikum</option>
+                                        <option value="pengujian">Pengujian</option>
+                                        <option value="peminjaman">Peminjaman</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 

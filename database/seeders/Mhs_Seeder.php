@@ -34,22 +34,22 @@ class Mhs_Seeder extends Seeder
         ]);
 
         $faker = Factory::create('id_ID');
-        for($i=0; $i < 30; $i++) {
-            User::create([
-                        'nama' => $faker->name(),
-                        'username' => rand(11111111,99999999),
-                        'password' => Hash::make('faisol'),
-                        'alamat' => $faker->address(),
-                        'tmp_lahir' => $faker->city(),
-                        'tgl_lahir' => $faker->date(),
-                        'no_hp' => $faker->phoneNumber(),
-                        'email' => $faker->unique()->safeEmail(),
-                        'foto' => 'public/foto/default.png',
-                        'status' => 'non-aktif',
-                        'role' => 'mahasiswa',
-                    ]);
+         for($i=0; $i < 30; $i++) {
+             User::create([
+                         'nama' => $faker->name(),
+                         'username' => rand(11111111,99999999),
+                         'password' => Hash::make('faisol'),
+                         'alamat' => $faker->address(),
+                         'tmp_lahir' => $faker->city(),
+                         'tgl_lahir' => $faker->date(),
+                         'no_hp' => $faker->phoneNumber(),
+                         'email' => $faker->unique()->safeEmail(),
+                         'foto' => 'public/foto/default.png',
+                         'status' => 'non-aktif',
+                         'role' => 'mahasiswa',
+                     ]);
 
-        }
+         }
         for($i=0; $i < 15; $i++) {
             Dosen::create([
                 'nidn' => rand(111111111,999999999),

@@ -43,6 +43,7 @@ return new class extends Migration
             $table->foreign('id_user')->references('id_user')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->date('tgl_daftar');
             $table->decimal('total_bayar')->nullable();
+            $table->string('laporan')->nullable();
             $table->string('dikirim_oleh')->nullable();
             $table->string('diterima_oleh')->nullable();
             $table->timestamps();

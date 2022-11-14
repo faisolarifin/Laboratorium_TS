@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
 
-                        <table class="table table-striped">
+                        <table class="table table-striped tab-table">
                             <tr>
                                 <th>Nama : {{ $pendaftar->mhs->nama }}</th>
                             </tr>
@@ -28,7 +28,7 @@
 
                         </table>
 
-                        <table class="table table-striped mt-1">
+                        <table class="table table-striped mt-1 tab-table">
                             <tr class="table-primary">
                                 <th>Nama Matkul</th>
                                 <th>Harga</th>
