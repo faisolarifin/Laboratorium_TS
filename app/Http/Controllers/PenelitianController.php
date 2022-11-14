@@ -161,7 +161,7 @@ class PenelitianController extends Controller
             'laporan' => 'required'
         ]);
         if ($laporan->laporan != null) {
-
+            Storage::delete($laporan->laporan);
         }
         $path = 'public/files/laporan';
         $laporanFile = $request->file('laporan');
